@@ -25,7 +25,8 @@ class Game:
         # DEV ONLY ###########
         self.key_presses = {
             "s": False,
-            "1": False
+            "1": False,
+            "0": False
         }
         self.mouse_clicks = {}
         ######################
@@ -38,17 +39,21 @@ class Game:
         self.menu_is_running = False
         self.game_is_running = True
 
-        player = Player("game_objects/level_1/blocks/grass-side.png")
-        block = Block("game_objects/level_1/blocks/grass-side.png")
+        player = Player(
+            name="Player",
+            image_path="images/player-spritesheet.png",
+            width=200,
+            height=200
+        )
 
         outer_blocks = pygame.sprite.Group()
-        outer_blocks.add(block)
 
         with open("data/level_1.json", "r") as map_file:
             map_data = json.load(map_file)
 
             for sprite_data in map_data:
                 block = Block(
+                    name=["name"],
                     image_path=sprite_data["image_path"],
                     width=sprite_data["width"],
                     height=sprite_data["height"]
@@ -74,21 +79,29 @@ class Game:
                         self.game_is_running = False
                         pygame.quit()
                         sys.exit()
+                    # DEV ONLY #####################
                     if event.key == K_s:
                         self.key_presses["s"] = True
                     if event.key == K_1:
                         self.key_presses["1"] = True
+                    if event.key == K_0:
+                        self.key_presses["0"] = True
+                    ################################
 
                 if event.type == KEYUP:
+                    # DEV ONLY ######################
                     if event.key == K_s:
                         self.key_presses["s"] = False
                     if event.key == K_1:
                         self.key_presses["1"] = False
+                    if event.key == K_0:
+                        self.key_presses["0"] = False
+                    #################################
 
             pressed_keys = pygame.key.get_pressed()
 
             for entity in all_sprites:
-                if entity is player:
+                if entity.name == "Player":
                     entity.update(pressed_keys)
                 else:
                     entity.update()
@@ -174,10 +187,25 @@ class Game:
 
         if self.key_presses["1"]:
             self.key_presses["1"] = False
-            grass = Block("images/grass-side.png")
+            grass = Block(
+                name="Grass",
+                image_path="images/grass-side.png"
+            )
             grass.rect.centerx = mouse_x
             grass.rect.centery = mouse_y
             all_sprites.add(grass)
+
+        if self.key_presses["0"]:
+            self.key_presses["0"] = False
+            player = Player(
+                name="Player",
+                image_path="images/player-spritesheet.png",
+                width=200,
+                height=200
+            )
+            player.rect.centerx = mouse_x
+            player.rect.centery = mouse_y
+            all_sprites.add(player)
 
         if self.key_presses["s"]:
             self.key_presses["s"] = False

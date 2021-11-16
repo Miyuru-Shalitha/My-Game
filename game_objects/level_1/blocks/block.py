@@ -3,8 +3,9 @@ from pygame.locals import *
 
 
 class Block(pygame.sprite.Sprite):
-    def __init__(self, image_path, width=None, height=None):
+    def __init__(self, name, image_path, width=None, height=None):
         super().__init__()
+        self.name = name
         self.width = width
         self.height = height
 
