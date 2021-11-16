@@ -1,1 +1,1 @@
-[{"image_path": "images/player-spritesheet.png", "width": 200, "height": 200, "x_coord": 885, "y_coord": 195}]
+[{"group": "players", "image_path": "images/player-spritesheet.png", "width": 200, "height": 200, "x_coord": 340, "y_coord": 543}]

@@ -39,31 +39,43 @@ class Game:
         self.menu_is_running = False
         self.game_is_running = True
 
-        player = Player(
-            name="Player",
-            image_path="images/player-spritesheet.png",
-            width=200,
-            height=200
-        )
-
+        all_sprites = pygame.sprite.Group()
         outer_blocks = pygame.sprite.Group()
+        players = pygame.sprite.Group()
+
+        # player = Player(
+        #     name="Player",
+        #     image_path="images/player-spritesheet.png",
+        #     width=200,
+        #     height=200
+        # )
 
         with open("data/level_1.json", "r") as map_file:
             map_data = json.load(map_file)
 
             for sprite_data in map_data:
-                block = Block(
-                    name=["name"],
-                    image_path=sprite_data["image_path"],
-                    width=sprite_data["width"],
-                    height=sprite_data["height"]
-                )
-                block.rect.x = sprite_data["x_coord"]
-                block.rect.y = sprite_data["y_coord"]
-                outer_blocks.add(block)
+                if sprite_data["group"] == "outer_blocks":
+                    block = Block(
+                        group="outer_blocks",
+                        image_path=sprite_data["image_path"],
+                        width=sprite_data["width"],
+                        height=sprite_data["height"]
+                    )
+                    block.rect.x = sprite_data["x_coord"]
+                    block.rect.y = sprite_data["y_coord"]
+                    outer_blocks.add(block)
+                elif sprite_data["group"] == "players":
+                    player = Player(
+                        group="players",
+                        image_path="images/player-spritesheet.png",
+                        width=200,
+                        height=200
+                    )
+                    player.rect.x = sprite_data["x_coord"]
+                    player.rect.y = sprite_data["y_coord"]
+                    players.add(player)
 
-        all_sprites = pygame.sprite.Group()
-        all_sprites.add(outer_blocks, player)
+        all_sprites.add(outer_blocks, players)
 
         while self.game_is_running:
             self.game_surf.fill(BLACK)
@@ -100,17 +112,20 @@ class Game:
 
             pressed_keys = pygame.key.get_pressed()
 
-            for entity in all_sprites:
-                if entity.name == "Player":
-                    entity.update(pressed_keys)
-                else:
-                    entity.update()
+            outer_blocks.update()
+            players.update(pressed_keys)
 
-                self.game_surf.blit(entity.image, entity.rect)
+            outer_blocks.draw(self.game_surf)
+            players.draw(self.game_surf)
 
-            # DEV ONLY ####################
-            self.level_editor(1, all_sprites)
-            ###############################
+            # DEV ONLY ######################
+            self.level_editor(
+                level=1,
+                outer_blocks=outer_blocks,
+                players=players,
+                all_sprites=all_sprites,
+            )
+            #################################
 
             # FPS TEXT #############################################################################
             fps_text_surface = self.font.render(f"FPS: {round(self.clock.get_fps())}", False, WHITE)
@@ -167,7 +182,7 @@ class Game:
     #         pygame.display.flip()
     #         self.clock.tick(FPS)
 
-    def level_editor(self, level, all_sprites):
+    def level_editor(self, level, **kwargs):
         mouse_x, mouse_y = pygame.mouse.get_pos()
         mouse_x = mouse_x * (SCREEN_SIZE[0] / self.screen.get_width())
         mouse_y = mouse_y * (SCREEN_SIZE[1] / self.screen.get_height())
@@ -175,44 +190,49 @@ class Game:
         pressed_keys = pygame.key.get_pressed()
 
         if pressed_mouse_buttons[0]:
-            for entity in all_sprites:
+            for entity in kwargs["all_sprites"]:
                 if entity.rect.collidepoint(mouse_x, mouse_y):
                     entity.rect.centerx = mouse_x
                     entity.rect.centery = mouse_y
 
         if pressed_mouse_buttons[2]:
-            for entity in all_sprites:
+            for entity in kwargs["all_sprites"]:
                 if entity.rect.collidepoint(mouse_x, mouse_y):
                     entity.kill()
 
         if self.key_presses["1"]:
             self.key_presses["1"] = False
             grass = Block(
-                name="Grass",
-                image_path="images/grass-side.png"
+                group="outer_blocks",
+                image_path="images/grass-side.png",
+                width=50,
+                height=50
             )
             grass.rect.centerx = mouse_x
             grass.rect.centery = mouse_y
-            all_sprites.add(grass)
+            kwargs["outer_blocks"].add(grass)
+            kwargs["all_sprites"].add(grass)
 
         if self.key_presses["0"]:
             self.key_presses["0"] = False
             player = Player(
-                name="Player",
+                group="players",
                 image_path="images/player-spritesheet.png",
                 width=200,
                 height=200
             )
             player.rect.centerx = mouse_x
             player.rect.centery = mouse_y
-            all_sprites.add(player)
+            kwargs["players"].add(player)
+            kwargs["all_sprites"].add(player)
 
         if self.key_presses["s"]:
             self.key_presses["s"] = False
             new_map_data = []
 
-            for entity in all_sprites:
+            for entity in kwargs["all_sprites"]:
                 new_map_data.append({
+                    "group": entity.group,
                     "image_path": entity.image_path,
                     "width": entity.width,
                     "height": entity.height,
@@ -220,6 +240,7 @@ class Game:
                     "y_coord": entity.rect.y
                 })
 
+            # new_map_json_data = json.dumps(new_map_data, indent=4)
             new_map_json_data = json.dumps(new_map_data)
 
             with open(f"data/level_{level}.json", "w") as map_file:
