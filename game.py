@@ -24,9 +24,13 @@ class Game:
 
         # DEV ONLY ###########
         self.key_presses = {
-            "s": False,
+            "z": False,
             "1": False,
-            "0": False
+            "0": False,
+            "d": False,
+            "a": False,
+            "w": False,
+            "s": False
         }
         self.mouse_clicks = {}
         ######################
@@ -92,22 +96,38 @@ class Game:
                         pygame.quit()
                         sys.exit()
                     # DEV ONLY #####################
-                    if event.key == K_s:
-                        self.key_presses["s"] = True
+                    if event.key == K_z:
+                        self.key_presses["z"] = True
                     if event.key == K_1:
                         self.key_presses["1"] = True
                     if event.key == K_0:
                         self.key_presses["0"] = True
+                    if event.key == K_d:
+                        self.key_presses["d"] = True
+                    if event.key == K_a:
+                        self.key_presses["a"] = True
+                    if event.key == K_w:
+                        self.key_presses["w"] = True
+                    if event.key == K_s:
+                        self.key_presses["s"] = True
                     ################################
 
                 if event.type == KEYUP:
                     # DEV ONLY ######################
-                    if event.key == K_s:
-                        self.key_presses["s"] = False
+                    if event.key == K_z:
+                        self.key_presses["z"] = False
                     if event.key == K_1:
                         self.key_presses["1"] = False
                     if event.key == K_0:
                         self.key_presses["0"] = False
+                    if event.key == K_d:
+                        self.key_presses["d"] = False
+                    if event.key == K_a:
+                        self.key_presses["a"] = False
+                    if event.key == K_w:
+                        self.key_presses["w"] = False
+                    if event.key == K_s:
+                        self.key_presses["s"] = False
                     #################################
 
             pressed_keys = pygame.key.get_pressed()
@@ -141,10 +161,43 @@ class Game:
     #     self.menu_is_running = False
     #     self.game_is_running = True
     #
-    #     player = Player()
-    #
     #     all_sprites = pygame.sprite.Group()
-    #     all_sprites.add(player)
+    #     outer_blocks = pygame.sprite.Group()
+    #     players = pygame.sprite.Group()
+    #
+    #     # player = Player(
+    #     #     name="Player",
+    #     #     image_path="images/player-spritesheet.png",
+    #     #     width=200,
+    #     #     height=200
+    #     # )
+    #
+    #     with open("data/level_1.json", "r") as map_file:
+    #         map_data = json.load(map_file)
+    #
+    #         for sprite_data in map_data:
+    #             if sprite_data["group"] == "outer_blocks":
+    #                 block = Block(
+    #                     group="outer_blocks",
+    #                     image_path=sprite_data["image_path"],
+    #                     width=sprite_data["width"],
+    #                     height=sprite_data["height"]
+    #                 )
+    #                 block.rect.x = sprite_data["x_coord"]
+    #                 block.rect.y = sprite_data["y_coord"]
+    #                 outer_blocks.add(block)
+    #             elif sprite_data["group"] == "players":
+    #                 player = Player(
+    #                     group="players",
+    #                     image_path="images/player-spritesheet.png",
+    #                     width=200,
+    #                     height=200
+    #                 )
+    #                 player.rect.x = sprite_data["x_coord"]
+    #                 player.rect.y = sprite_data["y_coord"]
+    #                 players.add(player)
+    #
+    #     all_sprites.add(outer_blocks, players)
     #
     #     while self.game_is_running:
     #         self.game_surf.fill(BLACK)
@@ -160,24 +213,48 @@ class Game:
     #                     self.game_is_running = False
     #                     pygame.quit()
     #                     sys.exit()
+    #                 # DEV ONLY #####################
+    #                 if event.key == K_s:
+    #                     self.key_presses["s"] = True
+    #                 if event.key == K_1:
+    #                     self.key_presses["1"] = True
+    #                 if event.key == K_0:
+    #                     self.key_presses["0"] = True
+    #                 ################################
+    #
+    #             if event.type == KEYUP:
+    #                 # DEV ONLY ######################
+    #                 if event.key == K_s:
+    #                     self.key_presses["s"] = False
+    #                 if event.key == K_1:
+    #                     self.key_presses["1"] = False
+    #                 if event.key == K_0:
+    #                     self.key_presses["0"] = False
+    #                 #################################
     #
     #         pressed_keys = pygame.key.get_pressed()
     #
-    #         for entity in all_sprites:
-    #             if entity is player:
-    #                 entity.update(pressed_keys)
-    #             else:
-    #                 entity.update()
+    #         outer_blocks.update()
+    #         players.update(pressed_keys)
     #
-    #             self.game_surf.blit(player.image, player.rect)
+    #         outer_blocks.draw(self.game_surf)
+    #         players.draw(self.game_surf)
+    #
+    #         # DEV ONLY ######################
+    #         self.level_editor(
+    #             level=1,
+    #             outer_blocks=outer_blocks,
+    #             players=players,
+    #             all_sprites=all_sprites,
+    #         )
+    #         #################################
     #
     #         # FPS TEXT #############################################################################
     #         fps_text_surface = self.font.render(f"FPS: {round(self.clock.get_fps())}", False, WHITE)
     #         self.game_surf.blit(fps_text_surface, (10, 10))
     #         ########################################################################################
     #
-    #         self.screen.blit(pygame.transform.scale(self.game_surf, (self.screen_width, self.screen_height)),
-    #                          (0, 0))
+    #         self.screen.blit(pygame.transform.scale(self.game_surf, (self.screen_width, self.screen_height)), (0, 0))
     #
     #         pygame.display.flip()
     #         self.clock.tick(FPS)
@@ -226,8 +303,33 @@ class Game:
             kwargs["players"].add(player)
             kwargs["all_sprites"].add(player)
 
+        if self.key_presses["d"]:
+            self.key_presses["d"] = False
+            for entity in kwargs["all_sprites"]:
+                if entity.rect.collidepoint(mouse_x, mouse_y):
+                    entity.rect.x += 1
+
+        if self.key_presses["a"]:
+            self.key_presses["a"] = False
+            for entity in kwargs["all_sprites"]:
+                if entity.rect.collidepoint(mouse_x, mouse_y):
+                    entity.rect.x -= 1
+
+        if self.key_presses["w"]:
+            self.key_presses["w"] = False
+            for entity in kwargs["all_sprites"]:
+                if entity.rect.collidepoint(mouse_x, mouse_y):
+                    entity.rect.y -= 1
+
         if self.key_presses["s"]:
             self.key_presses["s"] = False
+            for entity in kwargs["all_sprites"]:
+                if entity.rect.collidepoint(mouse_x, mouse_y):
+                    entity.rect.y += 1
+
+        if self.key_presses["z"]:
+            self.key_presses["z"] = False
+            print("SAVE")
             new_map_data = []
 
             for entity in kwargs["all_sprites"]:
