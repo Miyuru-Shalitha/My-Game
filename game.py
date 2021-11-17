@@ -73,7 +73,8 @@ class Game:
                         group="players",
                         image_path="images/player-spritesheet.png",
                         width=200,
-                        height=200
+                        height=200,
+                        rigid_objects=[outer_blocks]
                     )
                     player.rect.x = sprite_data["x_coord"]
                     player.rect.y = sprite_data["y_coord"]
@@ -296,7 +297,8 @@ class Game:
                 group="players",
                 image_path="images/player-spritesheet.png",
                 width=200,
-                height=200
+                height=200,
+                rigid_objects=[kwargs["outer_blocks"]]
             )
             player.rect.centerx = mouse_x
             player.rect.centery = mouse_y
