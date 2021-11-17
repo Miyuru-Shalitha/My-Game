@@ -13,8 +13,9 @@ class Game:
         pygame.font.init()
         self.clock = pygame.time.Clock()
         self.monitor_size = pygame.display.Info()
-        self.screen = pygame.display.set_mode((self.monitor_size.current_w, self.monitor_size.current_h),
-                                              pygame.FULLSCREEN)
+        # self.screen = pygame.display.set_mode((self.monitor_size.current_w, self.monitor_size.current_h),
+        #                                       pygame.FULLSCREEN)
+        self.screen = pygame.display.set_mode(SCREEN_SIZE)  # DEV ONLY
         self.screen_width = self.screen.get_width()
         self.screen_height = self.screen.get_height()
         self.game_surf = pygame.Surface(SCREEN_SIZE)
@@ -84,8 +85,8 @@ class Game:
                     player = Player(
                         group="players",
                         image_path="images/player-spritesheet.png",
-                        width=200,
-                        height=200,
+                        width=sprite_data["width"],
+                        height=sprite_data["height"],
                         rigid_objects_groups=[outer_blocks]
                     )
                     player.rect.x = sprite_data["x_coord"]
@@ -171,7 +172,8 @@ class Game:
             self.game_surf.blit(fps_text_surface, (10, 10))
             ########################################################################################
 
-            self.screen.blit(pygame.transform.scale(self.game_surf, (self.screen_width, self.screen_height)), (0, 0))
+            # self.screen.blit(pygame.transform.scale(self.game_surf, (self.screen_width, self.screen_height)), (0, 0))
+            self.screen.blit(self.game_surf, (0, 0))  # DEV ONLY
 
             pygame.display.flip()
             self.clock.tick(FPS)
@@ -301,8 +303,8 @@ class Game:
             grass = Block(
                 group="outer_blocks",
                 image_path="images/grass-side.png",
-                width=50,
-                height=50
+                width=100,
+                height=100
             )
             grass.rect.centerx = mouse_x
             grass.rect.centery = mouse_y
@@ -314,8 +316,8 @@ class Game:
             dirt = Block(
                 group="inner_blocks",
                 image_path="images/dirt.png",
-                width=50,
-                height=50
+                width=100,
+                height=100
             )
             dirt.rect.centerx = mouse_x
             dirt.rect.centery = mouse_y
@@ -375,8 +377,8 @@ class Game:
                     "y_coord": entity.rect.y
                 })
 
-            # new_map_json_data = json.dumps(new_map_data, indent=4)
-            new_map_json_data = json.dumps(new_map_data)
+            new_map_json_data = json.dumps(new_map_data, indent=4) # DEV ONLY
+            # new_map_json_data = json.dumps(new_map_data)
 
             with open(f"data/level_{level}.json", "w") as map_file:
                 map_file.write(new_map_json_data)
