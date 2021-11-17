@@ -2,6 +2,7 @@ import json
 import pygame
 import sys
 import time
+from camera import *
 from config import *
 from game_objects.player.player import Player
 from game_objects.level_1.blocks.block import Block
@@ -104,6 +105,8 @@ class Game:
                     players.add(player)
 
         all_sprites.add(inner_blocks, outer_blocks, players)
+        all_sprites_list = [outer_blocks, inner_blocks, players]
+        camera = Camera(all_sprites_list=all_sprites_list, player=player)
 
         while self.game_loops_running["level_one"]:
             self.game_surf.fill(BLACK)
@@ -160,8 +163,10 @@ class Game:
 
             pressed_keys = pygame.key.get_pressed()
 
+            inner_blocks.update()
             outer_blocks.update()
             players.update(pressed_keys)
+            camera.update()
 
             inner_blocks.draw(self.game_surf)
             outer_blocks.draw(self.game_surf)

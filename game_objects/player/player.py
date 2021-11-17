@@ -20,6 +20,7 @@ class Player(pygame.sprite.Sprite, GravityMixin):
 
         self.rect = self.image.get_rect()
         self.speed = 5
+        self.jump_force = 10
         self.y_change = 0
         self.is_grounded = False
 
@@ -53,7 +54,7 @@ class Player(pygame.sprite.Sprite, GravityMixin):
                         self.rect.left = block.rect.right
 
         if pressed_keys[K_UP] and self.is_grounded:
-            self.y_change = -10
+            self.y_change = -self.jump_force
             self.is_grounded = False
 
         ###########################################################################
