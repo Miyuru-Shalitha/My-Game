@@ -1,6 +1,7 @@
 import json
 import pygame
 import sys
+import time
 from config import *
 from game_objects.player.player import Player
 from game_objects.level_1.blocks.block import Block
@@ -20,8 +21,19 @@ class Game:
         self.screen_height = self.screen.get_height()
         self.game_surf = pygame.Surface(SCREEN_SIZE)
         self.font = pygame.font.SysFont("fonts/PermanentMarker-Reguler.ttf", 32)
-        self.menu_is_running = False
-        self.game_is_running = False
+        self.game_loops_running = {
+            "menu": False,
+            "level_one": False,
+            "level_two": False,
+            "level_three": False,
+            "level_four": False,
+            "level_five": False,
+            "level_six": False,
+            "level_seven": False,
+            "level_eight": False,
+            "level_nine": False,
+            "level_ten": False
+        }
 
         # DEV ONLY ###########
         self.key_presses = {
@@ -37,25 +49,23 @@ class Game:
         self.mouse_clicks = {}
         ######################
 
+    def run_game_loop(self, game_loop_to_run):
+        for game_loop in self.game_loops_running:
+            if game_loop == game_loop_to_run:
+                self.game_loops_running[game_loop] = True
+            else:
+                self.game_loops_running[game_loop] = False
+
     def show_menu(self):
-        self.game_is_running = False
-        self.menu_is_running = True
+        pass
 
     def start_level_one(self):
-        self.menu_is_running = False
-        self.game_is_running = True
+        self.run_game_loop("level_one")
 
         all_sprites = pygame.sprite.Group()
         outer_blocks = pygame.sprite.Group()
         inner_blocks = pygame.sprite.Group()
         players = pygame.sprite.Group()
-
-        # player = Player(
-        #     name="Player",
-        #     image_path="images/player-spritesheet.png",
-        #     width=200,
-        #     height=200
-        # )
 
         with open("data/level_1.json", "r") as map_file:
             map_data = json.load(map_file)
@@ -95,18 +105,18 @@ class Game:
 
         all_sprites.add(inner_blocks, outer_blocks, players)
 
-        while self.game_is_running:
+        while self.game_loops_running["level_one"]:
             self.game_surf.fill(BLACK)
 
             for event in pygame.event.get():
                 if event.type == QUIT:
-                    self.game_is_running = False
+                    self.game_loops_running["level_one"] = False
                     pygame.quit()
                     sys.exit()
 
                 if event.type == KEYDOWN:
                     if event.key == K_ESCAPE:
-                        self.game_is_running = False
+                        self.game_loops_running["level_one"] = False
                         pygame.quit()
                         sys.exit()
                     # DEV ONLY #####################
@@ -177,108 +187,6 @@ class Game:
 
             pygame.display.flip()
             self.clock.tick(FPS)
-
-    # def start_level_two(self):
-    #     self.menu_is_running = False
-    #     self.game_is_running = True
-    #
-    #     all_sprites = pygame.sprite.Group()
-    #     outer_blocks = pygame.sprite.Group()
-    #     players = pygame.sprite.Group()
-    #
-    #     # player = Player(
-    #     #     name="Player",
-    #     #     image_path="images/player-spritesheet.png",
-    #     #     width=200,
-    #     #     height=200
-    #     # )
-    #
-    #     with open("data/level_1.json", "r") as map_file:
-    #         map_data = json.load(map_file)
-    #
-    #         for sprite_data in map_data:
-    #             if sprite_data["group"] == "outer_blocks":
-    #                 block = Block(
-    #                     group="outer_blocks",
-    #                     image_path=sprite_data["image_path"],
-    #                     width=sprite_data["width"],
-    #                     height=sprite_data["height"]
-    #                 )
-    #                 block.rect.x = sprite_data["x_coord"]
-    #                 block.rect.y = sprite_data["y_coord"]
-    #                 outer_blocks.add(block)
-    #             elif sprite_data["group"] == "players":
-    #                 player = Player(
-    #                     group="players",
-    #                     image_path="images/player-spritesheet.png",
-    #                     width=200,
-    #                     height=200
-    #                 )
-    #                 player.rect.x = sprite_data["x_coord"]
-    #                 player.rect.y = sprite_data["y_coord"]
-    #                 players.add(player)
-    #
-    #     all_sprites.add(outer_blocks, players)
-    #
-    #     while self.game_is_running:
-    #         self.game_surf.fill(BLACK)
-    #
-    #         for event in pygame.event.get():
-    #             if event.type == QUIT:
-    #                 self.game_is_running = False
-    #                 pygame.quit()
-    #                 sys.exit()
-    #
-    #             if event.type == KEYDOWN:
-    #                 if event.key == K_ESCAPE:
-    #                     self.game_is_running = False
-    #                     pygame.quit()
-    #                     sys.exit()
-    #                 # DEV ONLY #####################
-    #                 if event.key == K_s:
-    #                     self.key_presses["s"] = True
-    #                 if event.key == K_1:
-    #                     self.key_presses["1"] = True
-    #                 if event.key == K_0:
-    #                     self.key_presses["0"] = True
-    #                 ################################
-    #
-    #             if event.type == KEYUP:
-    #                 # DEV ONLY ######################
-    #                 if event.key == K_s:
-    #                     self.key_presses["s"] = False
-    #                 if event.key == K_1:
-    #                     self.key_presses["1"] = False
-    #                 if event.key == K_0:
-    #                     self.key_presses["0"] = False
-    #                 #################################
-    #
-    #         pressed_keys = pygame.key.get_pressed()
-    #
-    #         outer_blocks.update()
-    #         players.update(pressed_keys)
-    #
-    #         outer_blocks.draw(self.game_surf)
-    #         players.draw(self.game_surf)
-    #
-    #         # DEV ONLY ######################
-    #         self.level_editor(
-    #             level=1,
-    #             outer_blocks=outer_blocks,
-    #             players=players,
-    #             all_sprites=all_sprites,
-    #         )
-    #         #################################
-    #
-    #         # FPS TEXT #############################################################################
-    #         fps_text_surface = self.font.render(f"FPS: {round(self.clock.get_fps())}", False, WHITE)
-    #         self.game_surf.blit(fps_text_surface, (10, 10))
-    #         ########################################################################################
-    #
-    #         self.screen.blit(pygame.transform.scale(self.game_surf, (self.screen_width, self.screen_height)), (0, 0))
-    #
-    #         pygame.display.flip()
-    #         self.clock.tick(FPS)
 
     def level_editor(self, level, **kwargs):
         mouse_x, mouse_y = pygame.mouse.get_pos()
@@ -377,7 +285,7 @@ class Game:
                     "y_coord": entity.rect.y
                 })
 
-            new_map_json_data = json.dumps(new_map_data, indent=4) # DEV ONLY
+            new_map_json_data = json.dumps(new_map_data, indent=4)  # DEV ONLY
             # new_map_json_data = json.dumps(new_map_data)
 
             with open(f"data/level_{level}.json", "w") as map_file:
