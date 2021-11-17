@@ -26,6 +26,7 @@ class Game:
         self.key_presses = {
             "z": False,
             "1": False,
+            "2": False,
             "0": False,
             "d": False,
             "a": False,
@@ -45,6 +46,7 @@ class Game:
 
         all_sprites = pygame.sprite.Group()
         outer_blocks = pygame.sprite.Group()
+        inner_blocks = pygame.sprite.Group()
         players = pygame.sprite.Group()
 
         # player = Player(
@@ -68,6 +70,16 @@ class Game:
                     block.rect.x = sprite_data["x_coord"]
                     block.rect.y = sprite_data["y_coord"]
                     outer_blocks.add(block)
+                if sprite_data["group"] == "inner_blocks":
+                    block = Block(
+                        group="inner_blocks",
+                        image_path=sprite_data["image_path"],
+                        width=sprite_data["width"],
+                        height=sprite_data["height"]
+                    )
+                    block.rect.x = sprite_data["x_coord"]
+                    block.rect.y = sprite_data["y_coord"]
+                    inner_blocks.add(block)
                 elif sprite_data["group"] == "players":
                     player = Player(
                         group="players",
@@ -80,7 +92,7 @@ class Game:
                     player.rect.y = sprite_data["y_coord"]
                     players.add(player)
 
-        all_sprites.add(outer_blocks, players)
+        all_sprites.add(inner_blocks, outer_blocks, players)
 
         while self.game_is_running:
             self.game_surf.fill(BLACK)
@@ -101,6 +113,8 @@ class Game:
                         self.key_presses["z"] = True
                     if event.key == K_1:
                         self.key_presses["1"] = True
+                    if event.key == K_2:
+                        self.key_presses["2"] = True
                     if event.key == K_0:
                         self.key_presses["0"] = True
                     if event.key == K_d:
@@ -119,6 +133,8 @@ class Game:
                         self.key_presses["z"] = False
                     if event.key == K_1:
                         self.key_presses["1"] = False
+                    if event.key == K_2:
+                        self.key_presses["2"] = False
                     if event.key == K_0:
                         self.key_presses["0"] = False
                     if event.key == K_d:
@@ -136,12 +152,14 @@ class Game:
             outer_blocks.update()
             players.update(pressed_keys)
 
+            inner_blocks.draw(self.game_surf)
             outer_blocks.draw(self.game_surf)
             players.draw(self.game_surf)
 
             # DEV ONLY ######################
             self.level_editor(
                 level=1,
+                inner_blocks=inner_blocks,
                 outer_blocks=outer_blocks,
                 players=players,
                 all_sprites=all_sprites,
@@ -290,6 +308,19 @@ class Game:
             grass.rect.centery = mouse_y
             kwargs["outer_blocks"].add(grass)
             kwargs["all_sprites"].add(grass)
+
+        if self.key_presses["2"]:
+            self.key_presses["2"] = False
+            dirt = Block(
+                group="inner_blocks",
+                image_path="images/dirt.png",
+                width=50,
+                height=50
+            )
+            dirt.rect.centerx = mouse_x
+            dirt.rect.centery = mouse_y
+            kwargs["inner_blocks"].add(dirt)
+            kwargs["all_sprites"].add(dirt)
 
         if self.key_presses["0"]:
             self.key_presses["0"] = False
