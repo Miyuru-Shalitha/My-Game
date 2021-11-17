@@ -46,37 +46,28 @@ class ColliderMixin:
         self.is_collided_horizontally = False
         self.is_collided_vertically = False
 
-        if self.moving_direction["horizontal"] == "right":
-            for objs in self.other_objects_groups:
-                collided_sprites = pygame.sprite.spritecollide(self.game_object, objs, False)
+        for objs in self.other_objects_groups:
+            collided_sprites = pygame.sprite.spritecollide(self.game_object, objs, False)
 
+            if self.moving_direction["horizontal"] == "right":
                 for obj in collided_sprites:
                     if self.game_object.rect.right > obj.rect.left:
                         self.is_collided_horizontally = True
                         self.game_object.rect.right = obj.rect.left
 
-        elif self.moving_direction["horizontal"] == "left":
-            for objs in self.other_objects_groups:
-                collided_sprites = pygame.sprite.spritecollide(self.game_object, objs, False)
-
+            elif self.moving_direction["horizontal"] == "left":
                 for obj in collided_sprites:
                     if self.game_object.rect.left < obj.rect.right:
                         self.is_collided_horizontally = True
                         self.game_object.rect.left = obj.rect.right
 
-        if self.moving_direction["vertical"] == "up":
-            for objs in self.other_objects_groups:
-                collided_sprites = pygame.sprite.spritecollide(self.game_object, objs, False)
-
+            if self.moving_direction["vertical"] == "up":
                 for obj in collided_sprites:
                     if self.game_object.rect.top < obj.rect.bottom:
                         self.is_collided_vertically = True
                         self.game_object.rect.top = obj.rect.bottom
 
-        elif self.moving_direction["vertical"] == "down":
-            for objs in self.other_objects_groups:
-                collided_sprites = pygame.sprite.spritecollide(self.game_object, objs, False)
-
+            elif self.moving_direction["vertical"] == "down":
                 for obj in collided_sprites:
                     if self.game_object.rect.bottom > obj.rect.top:
                         self.is_collided_vertically = True
