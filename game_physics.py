@@ -8,7 +8,7 @@ class GravityMixin:
         self.y_change = 0
 
     def apply_gravity(self, dt):
-        self.game_object.rect.y += self.y_change * dt
+        self.game_object.rect.move_ip(0, self.y_change * dt)
         self.y_change += self.gravity * dt
 
 

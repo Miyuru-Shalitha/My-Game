@@ -39,7 +39,7 @@ class Player(pygame.sprite.Sprite, GravityMixin):
 
     def update(self, dt, pressed_keys):
         if pressed_keys[K_RIGHT]:
-            self.rect.x += self.speed * dt
+            self.rect.move_ip(self.speed*dt, 0)
 
             for objs_group in self.rigid_objects_groups:
                 for block in pygame.sprite.spritecollide(self, objs_group, False):
@@ -47,7 +47,7 @@ class Player(pygame.sprite.Sprite, GravityMixin):
                         self.rect.right = block.rect.left
 
         if pressed_keys[K_LEFT]:
-            self.rect.x -= self.speed * dt
+            self.rect.move_ip(-self.speed*dt, 0)
 
             for objs_group in self.rigid_objects_groups:
                 for block in pygame.sprite.spritecollide(self, objs_group, False):
@@ -55,7 +55,7 @@ class Player(pygame.sprite.Sprite, GravityMixin):
                         self.rect.left = block.rect.right
 
         if pressed_keys[K_UP] and self.is_grounded:
-            self.y_change = -self.jump_force * dt
+            self.y_change = -self.jump_force
             self.is_grounded = False
 
         ###########################################################################

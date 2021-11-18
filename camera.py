@@ -14,13 +14,13 @@ class Camera:
         for sprite_group in self.all_sprites_list:
             for sprite in sprite_group:
                 if self.player.rect.centerx > (self.screen_center_pos[0] + self.offset):
-                    sprite.rect.x -= self.speed*dt
+                    sprite.rect.move_ip(-self.speed*dt, 0)
 
                 if self.player.rect.centerx < (self.screen_center_pos[0] - self.offset):
-                    sprite.rect.x += self.speed*dt
+                    sprite.rect.move_ip(self.speed*dt, 0)
 
                 if self.player.rect.centery > (self.screen_center_pos[1] + self.offset):
-                    sprite.rect.y -= self.speed*dt
+                    sprite.rect.move_ip(0, -self.speed*dt)
 
                 if self.player.rect.centery < (self.screen_center_pos[1] - self.offset):
-                    sprite.rect.y += self.speed*dt
+                    sprite.rect.move_ip(0, self.speed*dt)

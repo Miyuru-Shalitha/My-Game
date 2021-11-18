@@ -142,6 +142,8 @@ class Game:
         foreground_sprites = pygame.sprite.Group()
         players = pygame.sprite.Group()
 
+        all_sprites_list = []
+
         # particles = {
         #     "river_water_particles": []
         # }
@@ -190,14 +192,14 @@ class Game:
                         image_path="images/player-spritesheet.png",
                         width=sprite_data["width"],
                         height=sprite_data["height"],
-                        rigid_objects_groups=[outer_blocks]
+                        rigid_objects_groups=[outer_blocks],
                     )
                     player.rect.x = sprite_data["x_coord"]
                     player.rect.y = sprite_data["y_coord"]
                     players.add(player)
 
         all_sprites.add(background_sprites, inner_blocks, outer_blocks, players, foreground_sprites)
-        all_sprites_list = [background_sprites, outer_blocks, inner_blocks, players, foreground_sprites]
+        all_sprites_list += [background_sprites, outer_blocks, inner_blocks, players, foreground_sprites]
         camera = Camera(all_sprites_list=all_sprites_list, player=player)
 
         prev_time = time.time()
@@ -208,7 +210,6 @@ class Game:
             dt = now - prev_time
             dt *= FPS
             prev_time = now
-            # dt = (self.clock.get_time() / 1000)*FPS
             ######################
 
             self.game_surf.fill(COLOR_SKY)
