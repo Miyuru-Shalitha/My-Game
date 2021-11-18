@@ -5,7 +5,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 329,
-        "y_coord": 938
+        "y_coord": 913
     },
     {
         "group": "inner_blocks",
@@ -13,7 +13,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 429,
-        "y_coord": 938
+        "y_coord": 913
     },
     {
         "group": "inner_blocks",
@@ -21,7 +21,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 529,
-        "y_coord": 938
+        "y_coord": 913
     },
     {
         "group": "inner_blocks",
@@ -29,7 +29,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 629,
-        "y_coord": 938
+        "y_coord": 913
     },
     {
         "group": "inner_blocks",
@@ -37,7 +37,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 729,
-        "y_coord": 938
+        "y_coord": 913
     },
     {
         "group": "inner_blocks",
@@ -45,7 +45,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 829,
-        "y_coord": 938
+        "y_coord": 913
     },
     {
         "group": "inner_blocks",
@@ -53,7 +53,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 929,
-        "y_coord": 938
+        "y_coord": 913
     },
     {
         "group": "inner_blocks",
@@ -61,7 +61,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 1029,
-        "y_coord": 938
+        "y_coord": 913
     },
     {
         "group": "inner_blocks",
@@ -69,7 +69,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 1129,
-        "y_coord": 938
+        "y_coord": 913
     },
     {
         "group": "inner_blocks",
@@ -77,7 +77,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 1229,
-        "y_coord": 938
+        "y_coord": 913
     },
     {
         "group": "inner_blocks",
@@ -85,7 +85,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 1329,
-        "y_coord": 938
+        "y_coord": 913
     },
     {
         "group": "inner_blocks",
@@ -93,7 +93,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 1429,
-        "y_coord": 938
+        "y_coord": 913
     },
     {
         "group": "inner_blocks",
@@ -101,7 +101,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 1529,
-        "y_coord": 938
+        "y_coord": 913
     },
     {
         "group": "inner_blocks",
@@ -109,7 +109,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 1629,
-        "y_coord": 938
+        "y_coord": 913
     },
     {
         "group": "inner_blocks",
@@ -117,7 +117,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 1729,
-        "y_coord": 938
+        "y_coord": 913
     },
     {
         "group": "inner_blocks",
@@ -125,7 +125,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 1829,
-        "y_coord": 938
+        "y_coord": 913
     },
     {
         "group": "inner_blocks",
@@ -133,7 +133,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 1929,
-        "y_coord": 938
+        "y_coord": 913
     },
     {
         "group": "inner_blocks",
@@ -141,7 +141,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 2029,
-        "y_coord": 938
+        "y_coord": 913
     },
     {
         "group": "inner_blocks",
@@ -149,7 +149,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 2129,
-        "y_coord": 938
+        "y_coord": 913
     },
     {
         "group": "inner_blocks",
@@ -157,7 +157,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 2229,
-        "y_coord": 938
+        "y_coord": 913
     },
     {
         "group": "outer_blocks",
@@ -165,7 +165,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 329,
-        "y_coord": 838
+        "y_coord": 813
     },
     {
         "group": "outer_blocks",
@@ -173,7 +173,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 429,
-        "y_coord": 838
+        "y_coord": 813
     },
     {
         "group": "outer_blocks",
@@ -181,7 +181,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 529,
-        "y_coord": 838
+        "y_coord": 813
     },
     {
         "group": "outer_blocks",
@@ -189,7 +189,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 629,
-        "y_coord": 838
+        "y_coord": 813
     },
     {
         "group": "outer_blocks",
@@ -197,7 +197,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 729,
-        "y_coord": 838
+        "y_coord": 813
     },
     {
         "group": "outer_blocks",
@@ -205,7 +205,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 829,
-        "y_coord": 838
+        "y_coord": 813
     },
     {
         "group": "outer_blocks",
@@ -213,7 +213,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 929,
-        "y_coord": 838
+        "y_coord": 813
     },
     {
         "group": "outer_blocks",
@@ -221,7 +221,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 1029,
-        "y_coord": 838
+        "y_coord": 813
     },
     {
         "group": "outer_blocks",
@@ -229,7 +229,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 1129,
-        "y_coord": 838
+        "y_coord": 813
     },
     {
         "group": "outer_blocks",
@@ -237,7 +237,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 1229,
-        "y_coord": 838
+        "y_coord": 813
     },
     {
         "group": "outer_blocks",
@@ -245,7 +245,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 1329,
-        "y_coord": 838
+        "y_coord": 813
     },
     {
         "group": "outer_blocks",
@@ -253,7 +253,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 1429,
-        "y_coord": 838
+        "y_coord": 813
     },
     {
         "group": "outer_blocks",
@@ -261,7 +261,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 1529,
-        "y_coord": 838
+        "y_coord": 813
     },
     {
         "group": "outer_blocks",
@@ -269,7 +269,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 1629,
-        "y_coord": 838
+        "y_coord": 813
     },
     {
         "group": "outer_blocks",
@@ -277,7 +277,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 1729,
-        "y_coord": 838
+        "y_coord": 813
     },
     {
         "group": "outer_blocks",
@@ -285,7 +285,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 1829,
-        "y_coord": 838
+        "y_coord": 813
     },
     {
         "group": "outer_blocks",
@@ -293,7 +293,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 1929,
-        "y_coord": 838
+        "y_coord": 813
     },
     {
         "group": "outer_blocks",
@@ -301,7 +301,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 2029,
-        "y_coord": 838
+        "y_coord": 813
     },
     {
         "group": "outer_blocks",
@@ -309,7 +309,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 2129,
-        "y_coord": 838
+        "y_coord": 813
     },
     {
         "group": "outer_blocks",
@@ -317,7 +317,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 2229,
-        "y_coord": 838
+        "y_coord": 813
     },
     {
         "group": "outer_blocks",
@@ -325,7 +325,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 1027,
-        "y_coord": 685
+        "y_coord": 660
     },
     {
         "group": "outer_blocks",
@@ -333,7 +333,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 1207,
-        "y_coord": 618
+        "y_coord": 593
     },
     {
         "group": "outer_blocks",
@@ -341,7 +341,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 1371,
-        "y_coord": 553
+        "y_coord": 528
     },
     {
         "group": "outer_blocks",
@@ -349,7 +349,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 1495,
-        "y_coord": 483
+        "y_coord": 458
     },
     {
         "group": "outer_blocks",
@@ -357,7 +357,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 1628,
-        "y_coord": 390
+        "y_coord": 365
     },
     {
         "group": "outer_blocks",
@@ -365,7 +365,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 1799,
-        "y_coord": 310
+        "y_coord": 285
     },
     {
         "group": "outer_blocks",
@@ -373,7 +373,7 @@
         "width": 100,
         "height": 100,
         "x_coord": 1994,
-        "y_coord": 190
+        "y_coord": 165
     },
     {
         "group": "outer_blocks",
@@ -381,14 +381,14 @@
         "width": 100,
         "height": 100,
         "x_coord": 2154,
-        "y_coord": 58
+        "y_coord": 33
     },
     {
         "group": "players",
         "image_path": "images/player-spritesheet.png",
-        "width": 200,
-        "height": 200,
-        "x_coord": 664,
-        "y_coord": 638
+        "width": 75,
+        "height": 150,
+        "x_coord": 834,
+        "y_coord": 663
     }
 ]

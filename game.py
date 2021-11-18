@@ -6,6 +6,7 @@ from camera import *
 from config import *
 from game_objects.player.player import Player
 from game_objects.level_1.blocks.block import Block
+from menu.button import Button
 from pygame.locals import *
 
 
@@ -45,7 +46,8 @@ class Game:
             "d": False,
             "a": False,
             "w": False,
-            "s": False
+            "s": False,
+            "b": False
         }
         self.mouse_clicks = {}
         ######################
@@ -58,7 +60,71 @@ class Game:
                 self.game_loops_running[game_loop] = False
 
     def show_menu(self):
-        pass
+        self.run_game_loop("menu")
+
+        all_sprites = pygame.sprite.Group()
+        buttons = pygame.sprite.Group()
+
+        screen_center_pos = (SCREEN_SIZE[0] // 2, SCREEN_SIZE[1] // 2)
+
+        start_button = Button(
+            group=buttons,
+            image_path="images/start-button.png",
+            width=300,
+            height=50,
+            func=self.start_level_one
+        )
+        start_button.rect.centerx = screen_center_pos[0]
+        start_button.rect.centery = screen_center_pos[1]
+        buttons.add(start_button)
+
+        levels_button = Button(
+            group=buttons,
+            image_path="images/levels-button.png",
+            width=300,
+            height=50,
+            func=self.start_level_one
+        )
+        levels_button.rect.centerx = screen_center_pos[0]
+        levels_button.rect.centery = start_button.rect.centery + 60
+        buttons.add(levels_button)
+
+        all_sprites.add(buttons)
+
+        while self.game_loops_running["menu"]:
+            self.game_surf.fill(BLACK)
+
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    self.game_loops_running["menu"] = False
+                    pygame.quit()
+                    sys.exit()
+
+                if event.type == KEYDOWN:
+                    if event.key == K_ESCAPE:
+                        self.game_loops_running["menu"] = False
+                        pygame.quit()
+                        sys.exit()
+
+                self.level_editor_controls(event=event)
+
+            mouse_x, mouse_y = pygame.mouse.get_pos()
+            clicked_mouse_buttons = pygame.mouse.get_pressed()
+
+            buttons.update(mouse_x, mouse_y, clicked_mouse_buttons)
+
+            buttons.draw(self.game_surf)
+
+            # FPS TEXT #############################################################################
+            fps_text_surface = self.font.render(f"FPS: {round(self.clock.get_fps())}", False, WHITE)
+            self.game_surf.blit(fps_text_surface, (10, 10))
+            ########################################################################################
+
+            # self.screen.blit(pygame.transform.scale(self.game_surf, (self.screen_width, self.screen_height)), (0, 0))
+            self.screen.blit(self.game_surf, (0, 0))  # DEV ONLY
+
+            pygame.display.flip()
+            self.clock.tick(FPS)
 
     def start_level_one(self):
         self.run_game_loop("level_one")
@@ -120,46 +186,9 @@ class Game:
                 if event.type == KEYDOWN:
                     if event.key == K_ESCAPE:
                         self.game_loops_running["level_one"] = False
-                        pygame.quit()
-                        sys.exit()
-                    # DEV ONLY #####################
-                    if event.key == K_z:
-                        self.key_presses["z"] = True
-                    if event.key == K_1:
-                        self.key_presses["1"] = True
-                    if event.key == K_2:
-                        self.key_presses["2"] = True
-                    if event.key == K_0:
-                        self.key_presses["0"] = True
-                    if event.key == K_d:
-                        self.key_presses["d"] = True
-                    if event.key == K_a:
-                        self.key_presses["a"] = True
-                    if event.key == K_w:
-                        self.key_presses["w"] = True
-                    if event.key == K_s:
-                        self.key_presses["s"] = True
-                    ################################
+                        self.show_menu()
 
-                if event.type == KEYUP:
-                    # DEV ONLY ######################
-                    if event.key == K_z:
-                        self.key_presses["z"] = False
-                    if event.key == K_1:
-                        self.key_presses["1"] = False
-                    if event.key == K_2:
-                        self.key_presses["2"] = False
-                    if event.key == K_0:
-                        self.key_presses["0"] = False
-                    if event.key == K_d:
-                        self.key_presses["d"] = False
-                    if event.key == K_a:
-                        self.key_presses["a"] = False
-                    if event.key == K_w:
-                        self.key_presses["w"] = False
-                    if event.key == K_s:
-                        self.key_presses["s"] = False
-                    #################################
+                self.level_editor_controls(event=event)
 
             pressed_keys = pygame.key.get_pressed()
 
@@ -173,13 +202,16 @@ class Game:
             players.draw(self.game_surf)
 
             # DEV ONLY ######################
-            self.level_editor(
-                level=1,
-                inner_blocks=inner_blocks,
-                outer_blocks=outer_blocks,
-                players=players,
-                all_sprites=all_sprites,
-            )
+            try:
+                self.level_editor(
+                    level=1,
+                    inner_blocks=inner_blocks,
+                    outer_blocks=outer_blocks,
+                    players=players,
+                    all_sprites=all_sprites,
+                )
+            except KeyError:
+                print("Invalid command!")
             #################################
 
             # FPS TEXT #############################################################################
@@ -242,8 +274,8 @@ class Game:
             player = Player(
                 group="players",
                 image_path="images/player-spritesheet.png",
-                width=200,
-                height=200,
+                width=75,
+                height=150,
                 rigid_objects_groups=[kwargs["outer_blocks"]]
             )
             player.rect.centerx = mouse_x
@@ -293,5 +325,50 @@ class Game:
             new_map_json_data = json.dumps(new_map_data, indent=4)  # DEV ONLY
             # new_map_json_data = json.dumps(new_map_data)
 
-            with open(f"data/level_{level}.json", "w") as map_file:
-                map_file.write(new_map_json_data)
+            if type(level) is int:
+                with open(f"data/level_{level}.json", "w") as map_file:
+                    map_file.write(new_map_json_data)
+            elif type(level) is str:
+                with open(f"data/{level}.json", "w") as map_file:
+                    map_file.write(new_map_json_data)
+
+    def level_editor_controls(self, event):
+        if event.type == KEYDOWN:
+            if event.key == K_z:
+                self.key_presses["z"] = True
+            if event.key == K_1:
+                self.key_presses["1"] = True
+            if event.key == K_2:
+                self.key_presses["2"] = True
+            if event.key == K_0:
+                self.key_presses["0"] = True
+            if event.key == K_d:
+                self.key_presses["d"] = True
+            if event.key == K_a:
+                self.key_presses["a"] = True
+            if event.key == K_w:
+                self.key_presses["w"] = True
+            if event.key == K_s:
+                self.key_presses["s"] = True
+            if event.key == K_b:
+                self.key_presses["b"] = True
+
+        if event.type == KEYUP:
+            if event.key == K_z:
+                self.key_presses["z"] = False
+            if event.key == K_1:
+                self.key_presses["1"] = False
+            if event.key == K_2:
+                self.key_presses["2"] = False
+            if event.key == K_0:
+                self.key_presses["0"] = False
+            if event.key == K_d:
+                self.key_presses["d"] = False
+            if event.key == K_a:
+                self.key_presses["a"] = False
+            if event.key == K_w:
+                self.key_presses["w"] = False
+            if event.key == K_s:
+                self.key_presses["s"] = False
+            if event.key == K_b:
+                self.key_presses["b"] = False

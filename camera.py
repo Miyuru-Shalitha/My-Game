@@ -18,8 +18,8 @@ class Camera:
                 if self.player.rect.centerx < (self.screen_center_pos[0] - self.offset):
                     sprite.rect.x += self.speed
 
-                if self.player.rect.centery > ((SCREEN_SIZE[1] // 2) + self.offset):
+                if self.player.rect.centery > (self.screen_center_pos[1] + self.offset):
                     sprite.rect.y -= self.speed
 
-                if self.player.rect.centery < ((SCREEN_SIZE[1] // 2) - self.offset):
+                if self.player.rect.centery < (self.screen_center_pos[1] - self.offset):
                     sprite.rect.y += self.speed
