@@ -7,9 +7,9 @@ class GravityMixin:
         self.gravity = 0.2
         self.y_change = 0
 
-    def apply_gravity(self):
-        self.game_object.rect.y += self.y_change
-        self.y_change += self.gravity
+    def apply_gravity(self, dt):
+        self.game_object.rect.y += self.y_change * dt
+        self.y_change += self.gravity * dt
 
 
 class ColliderMixin:

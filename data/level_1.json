@@ -1,394 +1,812 @@
 [
     {
+        "name": "river",
+        "group": "inner_blocks",
+        "image_path": "images/river.png",
+        "width": 1200,
+        "height": 300,
+        "x_coord": -445,
+        "y_coord": 893
+    },
+    {
+        "name": "dirt",
         "group": "inner_blocks",
         "image_path": "images/dirt.png",
         "width": 100,
         "height": 100,
-        "x_coord": 329,
-        "y_coord": 913
+        "x_coord": -2416,
+        "y_coord": 948
     },
     {
+        "name": "dirt",
         "group": "inner_blocks",
         "image_path": "images/dirt.png",
         "width": 100,
         "height": 100,
-        "x_coord": 429,
-        "y_coord": 913
+        "x_coord": -2316,
+        "y_coord": 948
     },
     {
+        "name": "dirt",
         "group": "inner_blocks",
         "image_path": "images/dirt.png",
         "width": 100,
         "height": 100,
-        "x_coord": 529,
-        "y_coord": 913
+        "x_coord": -2216,
+        "y_coord": 948
     },
     {
+        "name": "dirt",
         "group": "inner_blocks",
         "image_path": "images/dirt.png",
         "width": 100,
         "height": 100,
-        "x_coord": 629,
-        "y_coord": 913
+        "x_coord": -2116,
+        "y_coord": 948
     },
     {
+        "name": "dirt",
         "group": "inner_blocks",
         "image_path": "images/dirt.png",
         "width": 100,
         "height": 100,
-        "x_coord": 729,
-        "y_coord": 913
+        "x_coord": -2016,
+        "y_coord": 948
     },
     {
+        "name": "dirt",
         "group": "inner_blocks",
         "image_path": "images/dirt.png",
         "width": 100,
         "height": 100,
-        "x_coord": 829,
-        "y_coord": 913
+        "x_coord": -1916,
+        "y_coord": 948
     },
     {
+        "name": "dirt",
         "group": "inner_blocks",
         "image_path": "images/dirt.png",
         "width": 100,
         "height": 100,
-        "x_coord": 929,
-        "y_coord": 913
+        "x_coord": -1816,
+        "y_coord": 948
     },
     {
+        "name": "dirt",
         "group": "inner_blocks",
         "image_path": "images/dirt.png",
         "width": 100,
         "height": 100,
-        "x_coord": 1029,
-        "y_coord": 913
+        "x_coord": -1716,
+        "y_coord": 948
     },
     {
+        "name": "dirt",
         "group": "inner_blocks",
         "image_path": "images/dirt.png",
         "width": 100,
         "height": 100,
-        "x_coord": 1129,
-        "y_coord": 913
+        "x_coord": -1616,
+        "y_coord": 948
     },
     {
+        "name": "dirt",
         "group": "inner_blocks",
         "image_path": "images/dirt.png",
         "width": 100,
         "height": 100,
-        "x_coord": 1229,
-        "y_coord": 913
+        "x_coord": -1516,
+        "y_coord": 948
     },
     {
+        "name": "dirt",
         "group": "inner_blocks",
         "image_path": "images/dirt.png",
         "width": 100,
         "height": 100,
-        "x_coord": 1329,
-        "y_coord": 913
+        "x_coord": -1416,
+        "y_coord": 948
     },
     {
+        "name": "dirt",
         "group": "inner_blocks",
         "image_path": "images/dirt.png",
         "width": 100,
         "height": 100,
-        "x_coord": 1429,
-        "y_coord": 913
+        "x_coord": -1316,
+        "y_coord": 948
     },
     {
+        "name": "dirt",
         "group": "inner_blocks",
         "image_path": "images/dirt.png",
         "width": 100,
         "height": 100,
-        "x_coord": 1529,
-        "y_coord": 913
+        "x_coord": -1216,
+        "y_coord": 948
     },
     {
+        "name": "dirt",
         "group": "inner_blocks",
         "image_path": "images/dirt.png",
         "width": 100,
         "height": 100,
-        "x_coord": 1629,
-        "y_coord": 913
+        "x_coord": -1116,
+        "y_coord": 948
     },
     {
+        "name": "dirt",
         "group": "inner_blocks",
         "image_path": "images/dirt.png",
         "width": 100,
         "height": 100,
-        "x_coord": 1729,
-        "y_coord": 913
+        "x_coord": -1016,
+        "y_coord": 948
     },
     {
+        "name": "dirt",
         "group": "inner_blocks",
         "image_path": "images/dirt.png",
         "width": 100,
         "height": 100,
-        "x_coord": 1829,
-        "y_coord": 913
+        "x_coord": -916,
+        "y_coord": 948
     },
     {
+        "name": "dirt",
         "group": "inner_blocks",
         "image_path": "images/dirt.png",
         "width": 100,
         "height": 100,
-        "x_coord": 1929,
-        "y_coord": 913
+        "x_coord": -816,
+        "y_coord": 948
     },
     {
+        "name": "dirt",
         "group": "inner_blocks",
         "image_path": "images/dirt.png",
         "width": 100,
         "height": 100,
-        "x_coord": 2029,
-        "y_coord": 913
+        "x_coord": -716,
+        "y_coord": 948
     },
     {
+        "name": "dirt",
         "group": "inner_blocks",
         "image_path": "images/dirt.png",
         "width": 100,
         "height": 100,
-        "x_coord": 2129,
-        "y_coord": 913
+        "x_coord": -616,
+        "y_coord": 948
     },
     {
+        "name": "dirt",
         "group": "inner_blocks",
         "image_path": "images/dirt.png",
         "width": 100,
         "height": 100,
-        "x_coord": 2229,
-        "y_coord": 913
+        "x_coord": -516,
+        "y_coord": 948
     },
     {
+        "name": "dirt",
+        "group": "inner_blocks",
+        "image_path": "images/dirt.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": -2416,
+        "y_coord": 1048
+    },
+    {
+        "name": "dirt",
+        "group": "inner_blocks",
+        "image_path": "images/dirt.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": -2316,
+        "y_coord": 1048
+    },
+    {
+        "name": "dirt",
+        "group": "inner_blocks",
+        "image_path": "images/dirt.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": -2216,
+        "y_coord": 1048
+    },
+    {
+        "name": "dirt",
+        "group": "inner_blocks",
+        "image_path": "images/dirt.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": -2116,
+        "y_coord": 1048
+    },
+    {
+        "name": "dirt",
+        "group": "inner_blocks",
+        "image_path": "images/dirt.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": -2016,
+        "y_coord": 1048
+    },
+    {
+        "name": "dirt",
+        "group": "inner_blocks",
+        "image_path": "images/dirt.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": -1916,
+        "y_coord": 1048
+    },
+    {
+        "name": "dirt",
+        "group": "inner_blocks",
+        "image_path": "images/dirt.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": -1816,
+        "y_coord": 1048
+    },
+    {
+        "name": "dirt",
+        "group": "inner_blocks",
+        "image_path": "images/dirt.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": -1716,
+        "y_coord": 1048
+    },
+    {
+        "name": "dirt",
+        "group": "inner_blocks",
+        "image_path": "images/dirt.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": -1616,
+        "y_coord": 1048
+    },
+    {
+        "name": "dirt",
+        "group": "inner_blocks",
+        "image_path": "images/dirt.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": -1516,
+        "y_coord": 1048
+    },
+    {
+        "name": "dirt",
+        "group": "inner_blocks",
+        "image_path": "images/dirt.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": -1416,
+        "y_coord": 1048
+    },
+    {
+        "name": "dirt",
+        "group": "inner_blocks",
+        "image_path": "images/dirt.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": -1316,
+        "y_coord": 1048
+    },
+    {
+        "name": "dirt",
+        "group": "inner_blocks",
+        "image_path": "images/dirt.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": -1216,
+        "y_coord": 1048
+    },
+    {
+        "name": "dirt",
+        "group": "inner_blocks",
+        "image_path": "images/dirt.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": -1116,
+        "y_coord": 1048
+    },
+    {
+        "name": "dirt",
+        "group": "inner_blocks",
+        "image_path": "images/dirt.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": -1016,
+        "y_coord": 1048
+    },
+    {
+        "name": "dirt",
+        "group": "inner_blocks",
+        "image_path": "images/dirt.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": -916,
+        "y_coord": 1048
+    },
+    {
+        "name": "dirt",
+        "group": "inner_blocks",
+        "image_path": "images/dirt.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": -816,
+        "y_coord": 1048
+    },
+    {
+        "name": "dirt",
+        "group": "inner_blocks",
+        "image_path": "images/dirt.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": -716,
+        "y_coord": 1048
+    },
+    {
+        "name": "dirt",
+        "group": "inner_blocks",
+        "image_path": "images/dirt.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": -616,
+        "y_coord": 1048
+    },
+    {
+        "name": "dirt",
+        "group": "inner_blocks",
+        "image_path": "images/dirt.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": -516,
+        "y_coord": 1048
+    },
+    {
+        "name": "dirt",
+        "group": "inner_blocks",
+        "image_path": "images/dirt.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": 722,
+        "y_coord": 914
+    },
+    {
+        "name": "dirt",
+        "group": "inner_blocks",
+        "image_path": "images/dirt.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": 722,
+        "y_coord": 1014
+    },
+    {
+        "name": "dirt",
+        "group": "inner_blocks",
+        "image_path": "images/dirt.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": 822,
+        "y_coord": 914
+    },
+    {
+        "name": "dirt",
+        "group": "inner_blocks",
+        "image_path": "images/dirt.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": 922,
+        "y_coord": 914
+    },
+    {
+        "name": "dirt",
+        "group": "inner_blocks",
+        "image_path": "images/dirt.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": 1022,
+        "y_coord": 914
+    },
+    {
+        "name": "dirt",
+        "group": "inner_blocks",
+        "image_path": "images/dirt.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": 1122,
+        "y_coord": 914
+    },
+    {
+        "name": "dirt",
+        "group": "inner_blocks",
+        "image_path": "images/dirt.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": 1222,
+        "y_coord": 914
+    },
+    {
+        "name": "dirt",
+        "group": "inner_blocks",
+        "image_path": "images/dirt.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": 822,
+        "y_coord": 1014
+    },
+    {
+        "name": "dirt",
+        "group": "inner_blocks",
+        "image_path": "images/dirt.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": 922,
+        "y_coord": 1014
+    },
+    {
+        "name": "dirt",
+        "group": "inner_blocks",
+        "image_path": "images/dirt.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": 1022,
+        "y_coord": 1014
+    },
+    {
+        "name": "dirt",
+        "group": "inner_blocks",
+        "image_path": "images/dirt.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": 1122,
+        "y_coord": 1014
+    },
+    {
+        "name": "dirt",
+        "group": "inner_blocks",
+        "image_path": "images/dirt.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": 1222,
+        "y_coord": 1014
+    },
+    {
+        "name": "grass",
         "group": "outer_blocks",
         "image_path": "images/grass-side.png",
         "width": 100,
         "height": 100,
-        "x_coord": 329,
-        "y_coord": 813
+        "x_coord": -2416,
+        "y_coord": 848
     },
     {
+        "name": "grass",
         "group": "outer_blocks",
         "image_path": "images/grass-side.png",
         "width": 100,
         "height": 100,
-        "x_coord": 429,
-        "y_coord": 813
+        "x_coord": -2316,
+        "y_coord": 848
     },
     {
+        "name": "grass",
         "group": "outer_blocks",
         "image_path": "images/grass-side.png",
         "width": 100,
         "height": 100,
-        "x_coord": 529,
-        "y_coord": 813
+        "x_coord": -2216,
+        "y_coord": 848
     },
     {
+        "name": "grass",
         "group": "outer_blocks",
         "image_path": "images/grass-side.png",
         "width": 100,
         "height": 100,
-        "x_coord": 629,
-        "y_coord": 813
+        "x_coord": -2116,
+        "y_coord": 848
     },
     {
+        "name": "grass",
         "group": "outer_blocks",
         "image_path": "images/grass-side.png",
         "width": 100,
         "height": 100,
-        "x_coord": 729,
-        "y_coord": 813
+        "x_coord": -2016,
+        "y_coord": 848
     },
     {
+        "name": "grass",
         "group": "outer_blocks",
         "image_path": "images/grass-side.png",
         "width": 100,
         "height": 100,
-        "x_coord": 829,
-        "y_coord": 813
+        "x_coord": -1916,
+        "y_coord": 848
     },
     {
+        "name": "grass",
         "group": "outer_blocks",
         "image_path": "images/grass-side.png",
         "width": 100,
         "height": 100,
-        "x_coord": 929,
-        "y_coord": 813
+        "x_coord": -1816,
+        "y_coord": 848
     },
     {
+        "name": "grass",
         "group": "outer_blocks",
         "image_path": "images/grass-side.png",
         "width": 100,
         "height": 100,
-        "x_coord": 1029,
-        "y_coord": 813
+        "x_coord": -1716,
+        "y_coord": 848
     },
     {
+        "name": "grass",
         "group": "outer_blocks",
         "image_path": "images/grass-side.png",
         "width": 100,
         "height": 100,
-        "x_coord": 1129,
-        "y_coord": 813
+        "x_coord": -1616,
+        "y_coord": 848
     },
     {
+        "name": "grass",
         "group": "outer_blocks",
         "image_path": "images/grass-side.png",
         "width": 100,
         "height": 100,
-        "x_coord": 1229,
-        "y_coord": 813
+        "x_coord": -1516,
+        "y_coord": 848
     },
     {
+        "name": "grass",
         "group": "outer_blocks",
         "image_path": "images/grass-side.png",
         "width": 100,
         "height": 100,
-        "x_coord": 1329,
-        "y_coord": 813
+        "x_coord": -1416,
+        "y_coord": 848
     },
     {
+        "name": "grass",
         "group": "outer_blocks",
         "image_path": "images/grass-side.png",
         "width": 100,
         "height": 100,
-        "x_coord": 1429,
-        "y_coord": 813
+        "x_coord": -1316,
+        "y_coord": 848
     },
     {
+        "name": "grass",
         "group": "outer_blocks",
         "image_path": "images/grass-side.png",
         "width": 100,
         "height": 100,
-        "x_coord": 1529,
-        "y_coord": 813
+        "x_coord": -1216,
+        "y_coord": 848
     },
     {
+        "name": "grass",
         "group": "outer_blocks",
         "image_path": "images/grass-side.png",
         "width": 100,
         "height": 100,
-        "x_coord": 1629,
-        "y_coord": 813
+        "x_coord": -1116,
+        "y_coord": 848
     },
     {
+        "name": "grass",
         "group": "outer_blocks",
         "image_path": "images/grass-side.png",
         "width": 100,
         "height": 100,
-        "x_coord": 1729,
-        "y_coord": 813
+        "x_coord": -1016,
+        "y_coord": 848
     },
     {
+        "name": "grass",
         "group": "outer_blocks",
         "image_path": "images/grass-side.png",
         "width": 100,
         "height": 100,
-        "x_coord": 1829,
-        "y_coord": 813
+        "x_coord": -916,
+        "y_coord": 848
     },
     {
+        "name": "grass",
         "group": "outer_blocks",
         "image_path": "images/grass-side.png",
         "width": 100,
         "height": 100,
-        "x_coord": 1929,
-        "y_coord": 813
+        "x_coord": -816,
+        "y_coord": 848
     },
     {
+        "name": "grass",
         "group": "outer_blocks",
         "image_path": "images/grass-side.png",
         "width": 100,
         "height": 100,
-        "x_coord": 2029,
-        "y_coord": 813
+        "x_coord": -716,
+        "y_coord": 848
     },
     {
+        "name": "grass",
         "group": "outer_blocks",
         "image_path": "images/grass-side.png",
         "width": 100,
         "height": 100,
-        "x_coord": 2129,
-        "y_coord": 813
+        "x_coord": -616,
+        "y_coord": 848
     },
     {
+        "name": "grass",
         "group": "outer_blocks",
         "image_path": "images/grass-side.png",
         "width": 100,
         "height": 100,
-        "x_coord": 2229,
-        "y_coord": 813
+        "x_coord": -516,
+        "y_coord": 848
     },
     {
+        "name": "grass",
         "group": "outer_blocks",
         "image_path": "images/grass-side.png",
         "width": 100,
         "height": 100,
-        "x_coord": 1027,
-        "y_coord": 660
+        "x_coord": -188,
+        "y_coord": 659
     },
     {
+        "name": "grass",
         "group": "outer_blocks",
         "image_path": "images/grass-side.png",
         "width": 100,
         "height": 100,
-        "x_coord": 1207,
-        "y_coord": 593
+        "x_coord": -88,
+        "y_coord": 659
     },
     {
+        "name": "grass",
         "group": "outer_blocks",
         "image_path": "images/grass-side.png",
         "width": 100,
         "height": 100,
-        "x_coord": 1371,
-        "y_coord": 528
+        "x_coord": 12,
+        "y_coord": 659
     },
     {
+        "name": "grass",
         "group": "outer_blocks",
         "image_path": "images/grass-side.png",
         "width": 100,
         "height": 100,
-        "x_coord": 1495,
-        "y_coord": 458
+        "x_coord": 341,
+        "y_coord": 499
     },
     {
+        "name": "grass",
         "group": "outer_blocks",
         "image_path": "images/grass-side.png",
         "width": 100,
         "height": 100,
-        "x_coord": 1628,
-        "y_coord": 365
+        "x_coord": 441,
+        "y_coord": 499
     },
     {
+        "name": "grass",
         "group": "outer_blocks",
         "image_path": "images/grass-side.png",
         "width": 100,
         "height": 100,
-        "x_coord": 1799,
-        "y_coord": 285
+        "x_coord": 541,
+        "y_coord": 499
     },
     {
+        "name": "grass",
         "group": "outer_blocks",
         "image_path": "images/grass-side.png",
         "width": 100,
         "height": 100,
-        "x_coord": 1994,
-        "y_coord": 165
+        "x_coord": 722,
+        "y_coord": 814
     },
     {
+        "name": "grass",
         "group": "outer_blocks",
         "image_path": "images/grass-side.png",
         "width": 100,
         "height": 100,
-        "x_coord": 2154,
-        "y_coord": 33
+        "x_coord": 822,
+        "y_coord": 814
     },
     {
+        "name": "grass",
+        "group": "outer_blocks",
+        "image_path": "images/grass-side.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": 922,
+        "y_coord": 814
+    },
+    {
+        "name": "grass",
+        "group": "outer_blocks",
+        "image_path": "images/grass-side.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": 1022,
+        "y_coord": 814
+    },
+    {
+        "name": "grass",
+        "group": "outer_blocks",
+        "image_path": "images/grass-side.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": 1122,
+        "y_coord": 814
+    },
+    {
+        "name": "grass",
+        "group": "outer_blocks",
+        "image_path": "images/grass-side.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": 1222,
+        "y_coord": 814
+    },
+    {
+        "name": "grass",
+        "group": "outer_blocks",
+        "image_path": "images/grass-side.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": 1463,
+        "y_coord": 592
+    },
+    {
+        "name": "grass",
+        "group": "outer_blocks",
+        "image_path": "images/grass-side.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": 1563,
+        "y_coord": 592
+    },
+    {
+        "name": "grass",
+        "group": "outer_blocks",
+        "image_path": "images/grass-side.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": 474,
+        "y_coord": 837
+    },
+    {
+        "name": "grass",
+        "group": "outer_blocks",
+        "image_path": "images/grass-side.png",
+        "width": 100,
+        "height": 100,
+        "x_coord": 213,
+        "y_coord": 838
+    },
+    {
+        "name": "player",
         "group": "players",
         "image_path": "images/player-spritesheet.png",
         "width": 75,
         "height": 150,
-        "x_coord": 834,
-        "y_coord": 663
+        "x_coord": 824,
+        "y_coord": 664
     }
 ]

@@ -1,11 +1,13 @@
 import json
 import pygame
+import random
 import sys
 import time
 from camera import *
 from config import *
-from game_objects.player.player import Player
 from game_objects.level_1.blocks.block import Block
+from game_objects.player.player import Player
+from game_objects.level_1.river import River
 from menu.button import Button
 from pygame.locals import *
 
@@ -39,15 +41,16 @@ class Game:
 
         # DEV ONLY ###########
         self.key_presses = {
-            "z": False,
+            "0": False,
             "1": False,
             "2": False,
-            "0": False,
+            "6": False,
             "d": False,
             "a": False,
             "w": False,
             "s": False,
-            "b": False
+            "b": False,
+            "z": False
         }
         self.mouse_clicks = {}
         ######################
@@ -109,6 +112,9 @@ class Game:
                 self.level_editor_controls(event=event)
 
             mouse_x, mouse_y = pygame.mouse.get_pos()
+            mouse_x = mouse_x * (SCREEN_SIZE[0] / self.screen_width)
+            mouse_y = mouse_y * (SCREEN_SIZE[1] / self.screen_height)
+
             clicked_mouse_buttons = pygame.mouse.get_pressed()
 
             buttons.update(mouse_x, mouse_y, clicked_mouse_buttons)
@@ -132,14 +138,21 @@ class Game:
         all_sprites = pygame.sprite.Group()
         outer_blocks = pygame.sprite.Group()
         inner_blocks = pygame.sprite.Group()
+        background_sprites = pygame.sprite.Group()
+        foreground_sprites = pygame.sprite.Group()
         players = pygame.sprite.Group()
+
+        # particles = {
+        #     "river_water_particles": []
+        # }
 
         with open("data/level_1.json", "r") as map_file:
             map_data = json.load(map_file)
 
             for sprite_data in map_data:
-                if sprite_data["group"] == "outer_blocks":
+                if sprite_data["name"] == "grass":
                     block = Block(
+                        name=sprite_data["name"],
                         group="outer_blocks",
                         image_path=sprite_data["image_path"],
                         width=sprite_data["width"],
@@ -148,8 +161,9 @@ class Game:
                     block.rect.x = sprite_data["x_coord"]
                     block.rect.y = sprite_data["y_coord"]
                     outer_blocks.add(block)
-                if sprite_data["group"] == "inner_blocks":
+                elif sprite_data["name"] == "dirt":
                     block = Block(
+                        name=sprite_data["name"],
                         group="inner_blocks",
                         image_path=sprite_data["image_path"],
                         width=sprite_data["width"],
@@ -158,8 +172,20 @@ class Game:
                     block.rect.x = sprite_data["x_coord"]
                     block.rect.y = sprite_data["y_coord"]
                     inner_blocks.add(block)
+                elif sprite_data["name"] == "river":
+                    background_sprite = River(
+                        name=sprite_data["name"],
+                        group="inner_blocks",
+                        image_path=sprite_data["image_path"],
+                        width=sprite_data["width"],
+                        height=sprite_data["height"]
+                    )
+                    background_sprite.rect.x = sprite_data["x_coord"]
+                    background_sprite.rect.y = sprite_data["y_coord"]
+                    background_sprites.add(background_sprite)
                 elif sprite_data["group"] == "players":
                     player = Player(
+                        name=sprite_data["name"],
                         group="players",
                         image_path="images/player-spritesheet.png",
                         width=sprite_data["width"],
@@ -170,12 +196,22 @@ class Game:
                     player.rect.y = sprite_data["y_coord"]
                     players.add(player)
 
-        all_sprites.add(inner_blocks, outer_blocks, players)
-        all_sprites_list = [outer_blocks, inner_blocks, players]
+        all_sprites.add(background_sprites, inner_blocks, outer_blocks, players, foreground_sprites)
+        all_sprites_list = [background_sprites, outer_blocks, inner_blocks, players, foreground_sprites]
         camera = Camera(all_sprites_list=all_sprites_list, player=player)
 
+        prev_time = time.time()
+
         while self.game_loops_running["level_one"]:
-            self.game_surf.fill(BLACK)
+            # Delta time #########
+            now = time.time()
+            dt = now - prev_time
+            dt *= FPS
+            prev_time = now
+            # dt = (self.clock.get_time() / 1000)*FPS
+            ######################
+
+            self.game_surf.fill(COLOR_SKY)
 
             for event in pygame.event.get():
                 if event.type == QUIT:
@@ -192,14 +228,41 @@ class Game:
 
             pressed_keys = pygame.key.get_pressed()
 
-            inner_blocks.update()
-            outer_blocks.update()
-            players.update(pressed_keys)
-            camera.update()
+            # Update and draw sprites ###############################################
+            for background_sprite in background_sprites:
+                if self.is_out_of_screen(background_sprite):
+                    continue
 
-            inner_blocks.draw(self.game_surf)
-            outer_blocks.draw(self.game_surf)
-            players.draw(self.game_surf)
+                background_sprite.update(dt)
+                self.game_surf.blit(background_sprite.image, background_sprite.rect)
+
+            for inner_block in inner_blocks:
+                if self.is_out_of_screen(inner_block):
+                    continue
+
+                inner_block.update()
+                self.game_surf.blit(inner_block.image, inner_block.rect)
+
+            for outer_block in outer_blocks:
+                if self.is_out_of_screen(outer_block):
+                    continue
+
+                outer_block.update()
+                self.game_surf.blit(outer_block.image, outer_block.rect)
+
+            for player in players:
+                player.update(dt, pressed_keys)
+                self.game_surf.blit(player.image, player.rect)
+
+            for foreground_sprite in foreground_sprites:
+                if self.is_out_of_screen(foreground_sprite):
+                    continue
+
+                foreground_sprite.update()
+                self.game_surf.blit(foreground_sprite.image, foreground_sprite.rect)
+
+            camera.update(dt)
+            #########################################################################
 
             # DEV ONLY ######################
             try:
@@ -209,6 +272,8 @@ class Game:
                     outer_blocks=outer_blocks,
                     players=players,
                     all_sprites=all_sprites,
+                    background_sprites=background_sprites,
+                    foreground_sprites=foreground_sprites
                 )
             except KeyError:
                 print("Invalid command!")
@@ -224,6 +289,10 @@ class Game:
 
             pygame.display.flip()
             self.clock.tick(FPS)
+
+    def is_out_of_screen(self, sprite):
+        return (sprite.rect.right < 0) or (
+                    sprite.rect.left > SCREEN_SIZE[0] or (sprite.rect.bottom < 0) or (sprite.rect.top > SCREEN_SIZE[1]))
 
     def level_editor(self, level, **kwargs):
         mouse_x, mouse_y = pygame.mouse.get_pos()
@@ -243,9 +312,25 @@ class Game:
                 if entity.rect.collidepoint(mouse_x, mouse_y):
                     entity.kill()
 
+        if self.key_presses["0"]:
+            self.key_presses["0"] = False
+            player = Player(
+                name="player",
+                group="players",
+                image_path="images/player-spritesheet.png",
+                width=75,
+                height=150,
+                rigid_objects_groups=[kwargs["outer_blocks"]]
+            )
+            player.rect.centerx = mouse_x
+            player.rect.centery = mouse_y
+            kwargs["players"].add(player)
+            kwargs["all_sprites"].add(player)
+
         if self.key_presses["1"]:
             self.key_presses["1"] = False
             grass = Block(
+                name="grass",
                 group="outer_blocks",
                 image_path="images/grass-side.png",
                 width=100,
@@ -259,6 +344,7 @@ class Game:
         if self.key_presses["2"]:
             self.key_presses["2"] = False
             dirt = Block(
+                name="dirt",
                 group="inner_blocks",
                 image_path="images/dirt.png",
                 width=100,
@@ -269,19 +355,19 @@ class Game:
             kwargs["inner_blocks"].add(dirt)
             kwargs["all_sprites"].add(dirt)
 
-        if self.key_presses["0"]:
-            self.key_presses["0"] = False
-            player = Player(
-                group="players",
-                image_path="images/player-spritesheet.png",
-                width=75,
-                height=150,
-                rigid_objects_groups=[kwargs["outer_blocks"]]
+        if self.key_presses["6"]:
+            self.key_presses["6"] = False
+            river = River(
+                name="river",
+                group="background_sprites",
+                image_path="images/river.png",
+                width=1200,
+                height=300
             )
-            player.rect.centerx = mouse_x
-            player.rect.centery = mouse_y
-            kwargs["players"].add(player)
-            kwargs["all_sprites"].add(player)
+            river.rect.centerx = mouse_x
+            river.rect.centery = mouse_y
+            kwargs["background_sprites"].add(river)
+            kwargs["all_sprites"].add(river)
 
         if self.key_presses["d"]:
             self.key_presses["d"] = False
@@ -314,6 +400,7 @@ class Game:
 
             for entity in kwargs["all_sprites"]:
                 new_map_data.append({
+                    "name": entity.name,
                     "group": entity.group,
                     "image_path": entity.image_path,
                     "width": entity.width,
@@ -334,14 +421,14 @@ class Game:
 
     def level_editor_controls(self, event):
         if event.type == KEYDOWN:
-            if event.key == K_z:
-                self.key_presses["z"] = True
+            if event.key == K_0:
+                self.key_presses["0"] = True
             if event.key == K_1:
                 self.key_presses["1"] = True
             if event.key == K_2:
                 self.key_presses["2"] = True
-            if event.key == K_0:
-                self.key_presses["0"] = True
+            if event.key == K_6:
+                self.key_presses["6"] = True
             if event.key == K_d:
                 self.key_presses["d"] = True
             if event.key == K_a:
@@ -352,16 +439,18 @@ class Game:
                 self.key_presses["s"] = True
             if event.key == K_b:
                 self.key_presses["b"] = True
+            if event.key == K_z:
+                self.key_presses["z"] = True
 
         if event.type == KEYUP:
-            if event.key == K_z:
-                self.key_presses["z"] = False
+            if event.key == K_0:
+                self.key_presses["0"] = False
             if event.key == K_1:
                 self.key_presses["1"] = False
             if event.key == K_2:
                 self.key_presses["2"] = False
-            if event.key == K_0:
-                self.key_presses["0"] = False
+            if event.key == K_6:
+                self.key_presses["6"] = False
             if event.key == K_d:
                 self.key_presses["d"] = False
             if event.key == K_a:
@@ -372,3 +461,5 @@ class Game:
                 self.key_presses["s"] = False
             if event.key == K_b:
                 self.key_presses["b"] = False
+            if event.key == K_z:
+                self.key_presses["z"] = False

@@ -5,10 +5,11 @@ from pygame.locals import *
 
 
 class Player(pygame.sprite.Sprite, GravityMixin):
-    def __init__(self, group, image_path, width=None, height=None, rigid_objects_groups=()):
+    def __init__(self, name, group, image_path, width=None, height=None, rigid_objects_groups=()):
         super().__init__()
         super(pygame.sprite.Sprite, self).__init__(self)
 
+        self.name = name
         self.group = group
         self.width = width
         self.height = height
@@ -36,9 +37,9 @@ class Player(pygame.sprite.Sprite, GravityMixin):
 
         return surf
 
-    def update(self, pressed_keys):
+    def update(self, dt, pressed_keys):
         if pressed_keys[K_RIGHT]:
-            self.rect.x += self.speed
+            self.rect.x += self.speed * dt
 
             for objs_group in self.rigid_objects_groups:
                 for block in pygame.sprite.spritecollide(self, objs_group, False):
@@ -46,7 +47,7 @@ class Player(pygame.sprite.Sprite, GravityMixin):
                         self.rect.right = block.rect.left
 
         if pressed_keys[K_LEFT]:
-            self.rect.x -= self.speed
+            self.rect.x -= self.speed * dt
 
             for objs_group in self.rigid_objects_groups:
                 for block in pygame.sprite.spritecollide(self, objs_group, False):
@@ -54,11 +55,11 @@ class Player(pygame.sprite.Sprite, GravityMixin):
                         self.rect.left = block.rect.right
 
         if pressed_keys[K_UP] and self.is_grounded:
-            self.y_change = -self.jump_force
+            self.y_change = -self.jump_force * dt
             self.is_grounded = False
 
         ###########################################################################
-        self.apply_gravity()
+        self.apply_gravity(dt)
 
         if self.y_change > 1:
             self.is_grounded = False
