@@ -38,8 +38,10 @@ class River(pygame.sprite.Sprite):
             ])
 
         for particle in self.water_particles:
-            if (particle[2][0] <= 0) or (particle[0][0] > self.width) or (particle[0][0] < 0) or (
-                    particle[0][1] > self.height):
+            if (particle[2][0] <= 0) or \
+                    (particle[0][0] > self.width) or \
+                    (particle[0][0] < 0) or \
+                    (particle[0][1] > self.height):
                 self.water_particles.remove(particle)
 
         for particle in self.water_particles:

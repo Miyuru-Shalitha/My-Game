@@ -31,7 +31,10 @@ class EnemyAutoGun(pygame.sprite.Sprite):
         # self.gun_rect.centery = self.stand_rect.centery
         self.gun_mount_point = (self.stand_rect.centerx, self.stand_rect.centery - 20)
 
+        self.player_angle = 0
         self.gun_angle = 0
+        self.reaction_speed = 0.3
+        self.range = 700
 
     def update(self, dt):
         if self.player is None:
@@ -48,6 +51,10 @@ class EnemyAutoGun(pygame.sprite.Sprite):
         if len(self.players) > 0:
             player_distance_x = self.rect.centerx - self.player.rect.centerx
             player_distance_y = self.rect.centery - self.player.rect.centery
-            self.gun_angle = -math.atan2(player_distance_y, player_distance_x) * (180 / math.pi)
+            self.player_angle = -math.atan2(player_distance_y, player_distance_x) * (180 / math.pi)
 
-            print(player_distance_x, player_distance_y)
+            if math.sqrt((player_distance_x ** 2) + (player_distance_y ** 2)) < self.range:
+                if self.gun_angle < self.player_angle:
+                    self.gun_angle += self.reaction_speed * dt
+                elif self.gun_angle > self.player_angle:
+                    self.gun_angle -= self.reaction_speed * dt
