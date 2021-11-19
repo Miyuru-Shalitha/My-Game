@@ -33,8 +33,8 @@ class River(pygame.sprite.Sprite):
         for _ in range(100):
             self.water_particles.append([
                 [random.uniform(0, self.width), 10],
-                [random.uniform(-5, 5), 1, 0.3],
-                [random.randint(2, 7), -0.06]
+                [random.uniform(-2, 2), 0.5, 0.1],
+                [random.randint(5, 10), -0.01]
             ])
 
         for particle in self.water_particles:

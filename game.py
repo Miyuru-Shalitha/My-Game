@@ -44,13 +44,21 @@ class Game:
             "0": False,
             "1": False,
             "2": False,
+            "3": False,
+            "4": False,
+            "5": False,
             "6": False,
+            "7": False,
+            "8": False,
+            "9": False,
             "d": False,
             "a": False,
             "w": False,
             "s": False,
             "b": False,
-            "z": False
+            "z": False,
+            "e": False,
+            "r": False
         }
         self.mouse_clicks = {}
         ######################
@@ -152,43 +160,73 @@ class Game:
             map_data = json.load(map_file)
 
             for sprite_data in map_data:
-                if sprite_data["name"] == "grass":
-                    block = Block(
+                if sprite_data["name"] == "dirt":
+                    dirt = Block(
                         name=sprite_data["name"],
-                        group="outer_blocks",
+                        group=sprite_data["group"],
                         image_path=sprite_data["image_path"],
                         width=sprite_data["width"],
                         height=sprite_data["height"]
                     )
-                    block.rect.x = sprite_data["x_coord"]
-                    block.rect.y = sprite_data["y_coord"]
-                    outer_blocks.add(block)
-                elif sprite_data["name"] == "dirt":
-                    block = Block(
+                    dirt.rect.x = sprite_data["x_coord"]
+                    dirt.rect.y = sprite_data["y_coord"]
+                    inner_blocks.add(dirt)
+                elif (sprite_data["name"] == "grass-top") or \
+                        (sprite_data["name"] == "grass-right") or \
+                        (sprite_data["name"] == "grass-bottom") or \
+                        (sprite_data["name"] == "grass-left"):
+                    grass = Block(
                         name=sprite_data["name"],
-                        group="inner_blocks",
+                        group=sprite_data["group"],
+                        image_path=sprite_data["image_path"],
+                        width=sprite_data["width"],
+                        height=sprite_data["height"],
+                        angle=sprite_data["angle"]
+                    )
+                    grass.rect.x = sprite_data["x_coord"]
+                    grass.rect.y = sprite_data["y_coord"]
+                    outer_blocks.add(grass)
+                elif (sprite_data["name"] == "grass-corner-top-right") or \
+                        (sprite_data["name"] == "grass-corner-top-left") or \
+                        (sprite_data["name"] == "grass-corner-bottom-right") or \
+                        (sprite_data["name"] == "grass-corner-bottom-left"):
+                    grass_corner = Block(
+                        name=sprite_data["name"],
+                        group=sprite_data["group"],
+                        image_path=sprite_data["image_path"],
+                        width=sprite_data["width"],
+                        height=sprite_data["height"],
+                        angle=sprite_data["angle"]
+                    )
+                    grass_corner.rect.x = sprite_data["x_coord"]
+                    grass_corner.rect.y = sprite_data["y_coord"]
+                    outer_blocks.add(grass_corner)
+                elif sprite_data["name"] == "spikes":
+                    spikes = Block(
+                        name=sprite_data["name"],
+                        group=sprite_data["group"],
                         image_path=sprite_data["image_path"],
                         width=sprite_data["width"],
                         height=sprite_data["height"]
                     )
-                    block.rect.x = sprite_data["x_coord"]
-                    block.rect.y = sprite_data["y_coord"]
-                    inner_blocks.add(block)
+                    spikes.rect.x = sprite_data["x_coord"]
+                    spikes.rect.y = sprite_data["y_coord"]
+                    outer_blocks.add(spikes)
                 elif sprite_data["name"] == "river":
-                    background_sprite = River(
+                    river = River(
                         name=sprite_data["name"],
-                        group="inner_blocks",
+                        group=sprite_data["group"],
                         image_path=sprite_data["image_path"],
                         width=sprite_data["width"],
                         height=sprite_data["height"]
                     )
-                    background_sprite.rect.x = sprite_data["x_coord"]
-                    background_sprite.rect.y = sprite_data["y_coord"]
-                    background_sprites.add(background_sprite)
-                elif sprite_data["group"] == "players":
+                    river.rect.x = sprite_data["x_coord"]
+                    river.rect.y = sprite_data["y_coord"]
+                    background_sprites.add(river)
+                elif sprite_data["name"] == "player":
                     player = Player(
                         name=sprite_data["name"],
-                        group="players",
+                        group=sprite_data["group"],
                         image_path="images/player-spritesheet.png",
                         width=sprite_data["width"],
                         height=sprite_data["height"],
@@ -291,9 +329,12 @@ class Game:
             pygame.display.flip()
             self.clock.tick(FPS)
 
+    def start_level_two(self):
+        pass
+
     def is_out_of_screen(self, sprite):
         return (sprite.rect.right < 0) or (
-                    sprite.rect.left > SCREEN_SIZE[0] or (sprite.rect.bottom < 0) or (sprite.rect.top > SCREEN_SIZE[1]))
+                sprite.rect.left > SCREEN_SIZE[0] or (sprite.rect.bottom < 0) or (sprite.rect.top > SCREEN_SIZE[1]))
 
     def level_editor(self, level, **kwargs):
         mouse_x, mouse_y = pygame.mouse.get_pos()
@@ -330,34 +371,154 @@ class Game:
 
         if self.key_presses["1"]:
             self.key_presses["1"] = False
-            grass = Block(
-                name="grass",
-                group="outer_blocks",
-                image_path="images/grass-side.png",
-                width=100,
-                height=100
-            )
-            grass.rect.centerx = mouse_x
-            grass.rect.centery = mouse_y
-            kwargs["outer_blocks"].add(grass)
-            kwargs["all_sprites"].add(grass)
-
-        if self.key_presses["2"]:
-            self.key_presses["2"] = False
             dirt = Block(
                 name="dirt",
                 group="inner_blocks",
                 image_path="images/dirt.png",
                 width=100,
-                height=100
+                height=100,
+                angle=-90
             )
             dirt.rect.centerx = mouse_x
             dirt.rect.centery = mouse_y
-            kwargs["inner_blocks"].add(dirt)
+            kwargs["outer_blocks"].add(dirt)
             kwargs["all_sprites"].add(dirt)
+
+        if self.key_presses["2"]:
+            self.key_presses["2"] = False
+            grass_top = Block(
+                name="grass-top",
+                group="outer_blocks",
+                image_path="images/grass-side.png",
+                width=100,
+                height=100
+            )
+            grass_top.rect.centerx = mouse_x
+            grass_top.rect.centery = mouse_y
+            kwargs["outer_blocks"].add(grass_top)
+            kwargs["all_sprites"].add(grass_top)
+
+        if self.key_presses["3"]:
+            self.key_presses["3"] = False
+            grass_left = Block(
+                name="grass-left",
+                group="outer_blocks",
+                image_path="images/grass-side.png",
+                width=100,
+                height=100,
+                angle=90
+            )
+            grass_left.rect.centerx = mouse_x
+            grass_left.rect.centery = mouse_y
+            kwargs["outer_blocks"].add(grass_left)
+            kwargs["all_sprites"].add(grass_left)
+
+        if self.key_presses["4"]:
+            self.key_presses["4"] = False
+            grass_right = Block(
+                name="grass-right",
+                group="outer_blocks",
+                image_path="images/grass-side.png",
+                width=100,
+                height=100,
+                angle=-90
+            )
+            grass_right.rect.centerx = mouse_x
+            grass_right.rect.centery = mouse_y
+            kwargs["outer_blocks"].add(grass_right)
+            kwargs["all_sprites"].add(grass_right)
+
+        if self.key_presses["5"]:
+            self.key_presses["5"] = False
+            grass_bottom = Block(
+                name="grass-bottom",
+                group="outer_blocks",
+                image_path="images/grass-side.png",
+                width=100,
+                height=100,
+                angle=180
+            )
+            grass_bottom.rect.centerx = mouse_x
+            grass_bottom.rect.centery = mouse_y
+            kwargs["outer_blocks"].add(grass_bottom)
+            kwargs["all_sprites"].add(grass_bottom)
 
         if self.key_presses["6"]:
             self.key_presses["6"] = False
+            grass_corner_top_right = Block(
+                name="grass-corner-top-right",
+                group="outer_blocks",
+                image_path="images/grass-corner.png",
+                width=100,
+                height=100
+            )
+            grass_corner_top_right.rect.centerx = mouse_x
+            grass_corner_top_right.rect.centery = mouse_y
+            kwargs["outer_blocks"].add(grass_corner_top_right)
+            kwargs["all_sprites"].add(grass_corner_top_right)
+
+        if self.key_presses["7"]:
+            self.key_presses["7"] = False
+            print("grass_corner_top_left")
+            grass_corner_top_left = Block(
+                name="grass-corner-top-left",
+                group="outer_blocks",
+                image_path="images/grass-corner.png",
+                width=100,
+                height=100,
+                angle=-90
+            )
+            grass_corner_top_left.rect.centerx = mouse_x
+            grass_corner_top_left.rect.centery = mouse_y
+            kwargs["outer_blocks"].add(grass_corner_top_left)
+            kwargs["all_sprites"].add(grass_corner_top_left)
+
+        if self.key_presses["8"]:
+            self.key_presses["8"] = False
+            grass_corner_bottom_left = Block(
+                name="grass-corner-bottom-left",
+                group="outer_blocks",
+                image_path="images/grass-corner.png",
+                width=100,
+                height=100,
+                angle=-180
+            )
+            grass_corner_bottom_left.rect.centerx = mouse_x
+            grass_corner_bottom_left.rect.centery = mouse_y
+            kwargs["outer_blocks"].add(grass_corner_bottom_left)
+            kwargs["all_sprites"].add(grass_corner_bottom_left)
+
+        if self.key_presses["9"]:
+            self.key_presses["9"] = False
+            grass_corner_bottom_right = Block(
+                name="grass-corner-bottom-right",
+                group="outer_blocks",
+                image_path="images/grass-corner.png",
+                width=100,
+                height=100,
+                angle=90
+            )
+            grass_corner_bottom_right.rect.centerx = mouse_x
+            grass_corner_bottom_right.rect.centery = mouse_y
+            kwargs["outer_blocks"].add(grass_corner_bottom_right)
+            kwargs["all_sprites"].add(grass_corner_bottom_right)
+
+        if self.key_presses["e"]:
+            self.key_presses["e"] = False
+            spikes = Block(
+                name="spikes",
+                group="outer_blocks",
+                image_path="images/spikes.png",
+                width=100,
+                height=50
+            )
+            spikes.rect.centerx = mouse_x
+            spikes.rect.centery = mouse_y
+            kwargs["outer_blocks"].add(spikes)
+            kwargs["all_sprites"].add(spikes)
+
+        if self.key_presses["r"]:
+            self.key_presses["r"] = False
             river = River(
                 name="river",
                 group="background_sprites",
@@ -396,21 +557,80 @@ class Game:
 
         if self.key_presses["z"]:
             self.key_presses["z"] = False
-            print("SAVE")
+            print("SAVED")
             new_map_data = []
 
             for entity in kwargs["all_sprites"]:
-                new_map_data.append({
-                    "name": entity.name,
-                    "group": entity.group,
-                    "image_path": entity.image_path,
-                    "width": entity.width,
-                    "height": entity.height,
-                    "x_coord": entity.rect.x,
-                    "y_coord": entity.rect.y
-                })
+                if entity.name == "dirt":
+                    new_map_data.append({
+                        "name": entity.name,
+                        "group": entity.group,
+                        "image_path": entity.image_path,
+                        "width": entity.width,
+                        "height": entity.height,
+                        "x_coord": entity.rect.x,
+                        "y_coord": entity.rect.y,
+                    })
+                elif (entity.name == "grass-top") or \
+                        (entity.name == "grass-right") or \
+                        (entity.name == "grass-bottom") or \
+                        (entity.name == "grass-left"):
+                    new_map_data.append({
+                        "name": entity.name,
+                        "group": entity.group,
+                        "image_path": entity.image_path,
+                        "width": entity.width,
+                        "height": entity.height,
+                        "x_coord": entity.rect.x,
+                        "y_coord": entity.rect.y,
+                        "angle": entity.angle
+                    })
+                elif (entity.name == "grass-corner-top-right") or \
+                        (entity.name == "grass-corner-top-left") or \
+                        (entity.name == "grass-corner-bottom-right") or \
+                        (entity.name == "grass-corner-bottom-left"):
+                    new_map_data.append({
+                        "name": entity.name,
+                        "group": entity.group,
+                        "image_path": entity.image_path,
+                        "width": entity.width,
+                        "height": entity.height,
+                        "x_coord": entity.rect.x,
+                        "y_coord": entity.rect.y,
+                        "angle": entity.angle
+                    })
+                elif entity.name == "spikes":
+                    new_map_data.append({
+                        "name": entity.name,
+                        "group": entity.group,
+                        "image_path": entity.image_path,
+                        "width": entity.width,
+                        "height": entity.height,
+                        "x_coord": entity.rect.x,
+                        "y_coord": entity.rect.y,
+                    })
+                elif entity.name == "river":
+                    new_map_data.append({
+                        "name": entity.name,
+                        "group": entity.group,
+                        "image_path": entity.image_path,
+                        "width": entity.width,
+                        "height": entity.height,
+                        "x_coord": entity.rect.x,
+                        "y_coord": entity.rect.y,
+                    })
+                elif entity.name == "player":
+                    new_map_data.append({
+                        "name": entity.name,
+                        "group": entity.group,
+                        "image_path": entity.image_path,
+                        "width": entity.width,
+                        "height": entity.height,
+                        "x_coord": entity.rect.x,
+                        "y_coord": entity.rect.y,
+                    })
 
-            new_map_json_data = json.dumps(new_map_data, indent=4)  # DEV ONLY
+            new_map_json_data = json.dumps(new_map_data, indent=2)  # DEV ONLY
             # new_map_json_data = json.dumps(new_map_data)
 
             if type(level) is int:
@@ -428,8 +648,20 @@ class Game:
                 self.key_presses["1"] = True
             if event.key == K_2:
                 self.key_presses["2"] = True
+            if event.key == K_3:
+                self.key_presses["3"] = True
+            if event.key == K_4:
+                self.key_presses["4"] = True
+            if event.key == K_5:
+                self.key_presses["5"] = True
             if event.key == K_6:
                 self.key_presses["6"] = True
+            if event.key == K_7:
+                self.key_presses["7"] = True
+            if event.key == K_8:
+                self.key_presses["8"] = True
+            if event.key == K_9:
+                self.key_presses["9"] = True
             if event.key == K_d:
                 self.key_presses["d"] = True
             if event.key == K_a:
@@ -442,6 +674,10 @@ class Game:
                 self.key_presses["b"] = True
             if event.key == K_z:
                 self.key_presses["z"] = True
+            if event.key == K_e:
+                self.key_presses["e"] = True
+            if event.key == K_r:
+                self.key_presses["r"] = True
 
         if event.type == KEYUP:
             if event.key == K_0:
@@ -450,8 +686,20 @@ class Game:
                 self.key_presses["1"] = False
             if event.key == K_2:
                 self.key_presses["2"] = False
+            if event.key == K_3:
+                self.key_presses["3"] = False
+            if event.key == K_4:
+                self.key_presses["4"] = False
+            if event.key == K_5:
+                self.key_presses["5"] = False
             if event.key == K_6:
                 self.key_presses["6"] = False
+            if event.key == K_7:
+                self.key_presses["7"] = False
+            if event.key == K_8:
+                self.key_presses["8"] = False
+            if event.key == K_9:
+                self.key_presses["9"] = False
             if event.key == K_d:
                 self.key_presses["d"] = False
             if event.key == K_a:
@@ -464,3 +712,7 @@ class Game:
                 self.key_presses["b"] = False
             if event.key == K_z:
                 self.key_presses["z"] = False
+            if event.key == K_e:
+                self.key_presses["e"] = False
+            if event.key == K_r:
+                self.key_presses["r"] = False
