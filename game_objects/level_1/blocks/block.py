@@ -30,5 +30,5 @@ class Block(pygame.sprite.Sprite):
 
         self.rect = self.image.get_rect()
 
-    def update(self):
+    def update(self, dt):
         pass

@@ -6,6 +6,7 @@ import time
 from camera import *
 from config import *
 from game_objects.level_1.blocks.block import Block
+from game_objects.enemies.enemy_auto_gun import EnemyAutoGun
 from game_objects.player.player import Player
 from game_objects.level_1.river import River
 from menu.button import Button
@@ -58,7 +59,9 @@ class Game:
             "b": False,
             "z": False,
             "e": False,
-            "r": False
+            "r": False,
+            "t": False,
+            "q": False
         }
         self.mouse_clicks = {}
         ######################
@@ -223,6 +226,29 @@ class Game:
                     river.rect.x = sprite_data["x_coord"]
                     river.rect.y = sprite_data["y_coord"]
                     background_sprites.add(river)
+                elif sprite_data["name"] == "coin":
+                    coin = Block(
+                        name=sprite_data["name"],
+                        group=sprite_data["group"],
+                        image_path=sprite_data["image_path"],
+                        width=sprite_data["width"],
+                        height=sprite_data["height"]
+                    )
+                    coin.rect.x = sprite_data["x_coord"]
+                    coin.rect.y = sprite_data["y_coord"]
+                    inner_blocks.add(coin)
+                elif sprite_data["name"] == "auto-gun":
+                    auto_gun = EnemyAutoGun(
+                        name=sprite_data["name"],
+                        group=sprite_data["group"],
+                        images_paths=sprite_data["images_paths"],
+                        width=sprite_data["width"],
+                        height=sprite_data["height"],
+                        players=players
+                    )
+                    auto_gun.rect.x = sprite_data["x_coord"]
+                    auto_gun.rect.y = sprite_data["y_coord"]
+                    outer_blocks.add(auto_gun)
                 elif sprite_data["name"] == "player":
                     player = Player(
                         name=sprite_data["name"],
@@ -279,14 +305,14 @@ class Game:
                 if self.is_out_of_screen(inner_block):
                     continue
 
-                inner_block.update()
+                inner_block.update(dt)
                 self.game_surf.blit(inner_block.image, inner_block.rect)
 
             for outer_block in outer_blocks:
                 if self.is_out_of_screen(outer_block):
                     continue
 
-                outer_block.update()
+                outer_block.update(dt)
                 self.game_surf.blit(outer_block.image, outer_block.rect)
 
             for player in players:
@@ -297,7 +323,7 @@ class Game:
                 if self.is_out_of_screen(foreground_sprite):
                     continue
 
-                foreground_sprite.update()
+                foreground_sprite.update(dt)
                 self.game_surf.blit(foreground_sprite.image, foreground_sprite.rect)
 
             camera.update(dt)
@@ -531,6 +557,35 @@ class Game:
             kwargs["background_sprites"].add(river)
             kwargs["all_sprites"].add(river)
 
+        if self.key_presses["t"]:
+            self.key_presses["t"] = False
+            coin = Block(
+                name="coin",
+                group="inner_blocks",
+                image_path="images/coin.png",
+                width=50,
+                height=50
+            )
+            coin.rect.centerx = mouse_x
+            coin.rect.centery = mouse_y
+            kwargs["inner_blocks"].add(coin)
+            kwargs["all_sprites"].add(coin)
+
+        if self.key_presses["q"]:
+            self.key_presses["q"] = False
+            auto_gun = EnemyAutoGun(
+                name="auto-gun",
+                group="outer_blocks",
+                images_paths=["images/enemies/auto-gun/stand.png", "images/enemies/auto-gun/gun.png"],
+                width=100,
+                height=100,
+                players=kwargs["players"]
+            )
+            auto_gun.rect.centerx = mouse_x
+            auto_gun.rect.centery = mouse_y
+            kwargs["outer_blocks"].add(auto_gun)
+            kwargs["all_sprites"].add(auto_gun)
+
         if self.key_presses["d"]:
             self.key_presses["d"] = False
             for entity in kwargs["all_sprites"]:
@@ -619,6 +674,26 @@ class Game:
                         "x_coord": entity.rect.x,
                         "y_coord": entity.rect.y,
                     })
+                elif entity.name == "coin":
+                    new_map_data.append({
+                        "name": entity.name,
+                        "group": entity.group,
+                        "image_path": entity.image_path,
+                        "width": entity.width,
+                        "height": entity.height,
+                        "x_coord": entity.rect.x,
+                        "y_coord": entity.rect.y,
+                    })
+                elif entity.name == "auto-gun":
+                    new_map_data.append({
+                        "name": entity.name,
+                        "group": entity.group,
+                        "images_paths": entity.images_paths,
+                        "width": entity.width,
+                        "height": entity.height,
+                        "x_coord": entity.rect.x,
+                        "y_coord": entity.rect.y,
+                    })
                 elif entity.name == "player":
                     new_map_data.append({
                         "name": entity.name,
@@ -678,6 +753,10 @@ class Game:
                 self.key_presses["e"] = True
             if event.key == K_r:
                 self.key_presses["r"] = True
+            if event.key == K_t:
+                self.key_presses["t"] = True
+            if event.key == K_q:
+                self.key_presses["q"] = True
 
         if event.type == KEYUP:
             if event.key == K_0:
@@ -716,3 +795,7 @@ class Game:
                 self.key_presses["e"] = False
             if event.key == K_r:
                 self.key_presses["r"] = False
+            if event.key == K_t:
+                self.key_presses["t"] = False
+            if event.key == K_q:
+                self.key_presses["q"] = False
