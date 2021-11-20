@@ -1,6 +1,5 @@
 import json
 import pygame
-import random
 import sys
 import time
 from camera import *
@@ -244,7 +243,9 @@ class Game:
                         images_paths=sprite_data["images_paths"],
                         width=sprite_data["width"],
                         height=sprite_data["height"],
-                        players=players
+                        players=players,
+                        game_surf=self.game_surf,
+                        all_sprites_list=all_sprites_list
                     )
                     auto_gun.rect.x = sprite_data["x_coord"]
                     auto_gun.rect.y = sprite_data["y_coord"]
@@ -338,7 +339,8 @@ class Game:
                     players=players,
                     all_sprites=all_sprites,
                     background_sprites=background_sprites,
-                    foreground_sprites=foreground_sprites
+                    foreground_sprites=foreground_sprites,
+                    all_sprites_list=all_sprites_list
                 )
             except KeyError:
                 print("Invalid command!")
@@ -367,7 +369,7 @@ class Game:
         mouse_x = mouse_x * (SCREEN_SIZE[0] / self.screen.get_width())
         mouse_y = mouse_y * (SCREEN_SIZE[1] / self.screen.get_height())
         pressed_mouse_buttons = pygame.mouse.get_pressed()
-        pressed_keys = pygame.key.get_pressed()
+        # pressed_keys = pygame.key.get_pressed()
 
         if pressed_mouse_buttons[0]:
             for entity in kwargs["all_sprites"]:
@@ -579,7 +581,9 @@ class Game:
                 images_paths=["images/enemies/auto-gun/stand.png", "images/enemies/auto-gun/gun.png"],
                 width=100,
                 height=100,
-                players=kwargs["players"]
+                players=kwargs["players"],
+                game_surf=self.game_surf,
+                all_sprites_list=kwargs["all_sprites_list"]
             )
             auto_gun.rect.centerx = mouse_x
             auto_gun.rect.centery = mouse_y
