@@ -7,6 +7,8 @@ from pygame.locals import *
 class ProjectTile(pygame.sprite.Sprite):
     def __init__(self, gun_angle):
         super().__init__()
+        self.name = "project-tile"
+
         self.image = pygame.Surface([20, 20])
         self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
@@ -30,7 +32,7 @@ class ProjectTile(pygame.sprite.Sprite):
 
 
 class EnemyAutoGun(pygame.sprite.Sprite):
-    def __init__(self, name, group, images_paths, players, game_surf, project_tiles, all_sprites_list, width=None, height=None):
+    def __init__(self, name, group, images_paths, players, game_surf, project_tiles, width=None, height=None):
         super().__init__()
 
         self.name = name
@@ -63,7 +65,6 @@ class EnemyAutoGun(pygame.sprite.Sprite):
         self.range = 800
         self.gun_timer = 0
         self.project_tiles = project_tiles
-        all_sprites_list.append(self.project_tiles)
 
         self.offset = 200
         self.screen_center_pos = (SCREEN_SIZE[0] // 2, SCREEN_SIZE[1] // 2)
@@ -95,7 +96,7 @@ class EnemyAutoGun(pygame.sprite.Sprite):
                 self.gun_timer += 1 * dt
 
                 if self.gun_timer >= 75:
-                    project_tile = ProjectTile(self.gun_angle)
+                    project_tile = ProjectTile(gun_angle=self.gun_angle)
                     project_tile.rect.centerx = self.rect.centerx
                     project_tile.rect.centery = self.rect.centery
                     self.project_tiles.add(project_tile)

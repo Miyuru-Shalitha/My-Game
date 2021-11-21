@@ -246,8 +246,7 @@ class Game:
                         height=sprite_data["height"],
                         players=players,
                         game_surf=self.game_surf,
-                        project_tiles=project_tiles,
-                        all_sprites_list=all_sprites_list
+                        project_tiles=project_tiles
                     )
                     auto_gun.rect.x = sprite_data["x_coord"]
                     auto_gun.rect.y = sprite_data["y_coord"]
@@ -265,8 +264,8 @@ class Game:
                     player.rect.y = sprite_data["y_coord"]
                     players.add(player)
 
-        all_sprites.add(background_sprites, inner_blocks, outer_blocks, players, foreground_sprites)
-        all_sprites_list += [background_sprites, outer_blocks, inner_blocks, players, foreground_sprites]
+        all_sprites.add(background_sprites, inner_blocks, outer_blocks, players, foreground_sprites, project_tiles)
+        all_sprites_list += [background_sprites, outer_blocks, inner_blocks, players, foreground_sprites, project_tiles]
         camera = Camera(all_sprites_list=all_sprites_list, player=player)
 
         prev_time = time.time()
@@ -593,8 +592,7 @@ class Game:
                 height=100,
                 players=kwargs["players"],
                 game_surf=self.game_surf,
-                project_tiles=kwargs["project_tiles"],
-                all_sprites_list=kwargs["all_sprites_list"]
+                project_tiles=kwargs["project_tiles"]
             )
             auto_gun.rect.centerx = mouse_x
             auto_gun.rect.centery = mouse_y
