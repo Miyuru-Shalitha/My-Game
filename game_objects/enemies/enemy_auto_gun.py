@@ -30,7 +30,7 @@ class ProjectTile(pygame.sprite.Sprite):
 
 
 class EnemyAutoGun(pygame.sprite.Sprite):
-    def __init__(self, name, group, images_paths, players, game_surf, all_sprites_list, width=None, height=None):
+    def __init__(self, name, group, images_paths, players, game_surf, project_tiles, all_sprites_list, width=None, height=None):
         super().__init__()
 
         self.name = name
@@ -62,7 +62,7 @@ class EnemyAutoGun(pygame.sprite.Sprite):
         self.reaction_speed = 0.2
         self.range = 800
         self.gun_timer = 0
-        self.project_tiles = pygame.sprite.Group()
+        self.project_tiles = project_tiles
         all_sprites_list.append(self.project_tiles)
 
         self.offset = 200
@@ -101,6 +101,3 @@ class EnemyAutoGun(pygame.sprite.Sprite):
                     self.project_tiles.add(project_tile)
 
                     self.gun_timer = 0
-
-        self.project_tiles.update(dt)
-        self.project_tiles.draw(self.game_surf)
