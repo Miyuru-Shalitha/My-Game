@@ -92,9 +92,9 @@ class EnemyAutoGun(pygame.sprite.Sprite):
                 elif self.gun_angle > self.player_angle:
                     self.gun_angle -= self.reaction_speed * dt
 
-                self.gun_timer += 1
+                self.gun_timer += 1 * dt
 
-                if self.gun_timer >= 50:
+                if self.gun_timer >= 75:
                     project_tile = ProjectTile(self.gun_angle)
                     project_tile.rect.centerx = self.rect.centerx
                     project_tile.rect.centery = self.rect.centery
