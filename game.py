@@ -151,7 +151,6 @@ class Game:
         background_sprites = pygame.sprite.Group()
         foreground_sprites = pygame.sprite.Group()
         players = pygame.sprite.Group()
-        project_tiles = pygame.sprite.Group()
 
         all_sprites_list = []
 
@@ -246,7 +245,7 @@ class Game:
                         height=sprite_data["height"],
                         players=players,
                         game_surf=self.game_surf,
-                        project_tiles=project_tiles
+                        all_sprites_list=all_sprites_list
                     )
                     auto_gun.rect.x = sprite_data["x_coord"]
                     auto_gun.rect.y = sprite_data["y_coord"]
@@ -264,8 +263,8 @@ class Game:
                     player.rect.y = sprite_data["y_coord"]
                     players.add(player)
 
-        all_sprites.add(background_sprites, inner_blocks, outer_blocks, players, foreground_sprites, project_tiles)
-        all_sprites_list += [background_sprites, outer_blocks, inner_blocks, players, foreground_sprites, project_tiles]
+        all_sprites.add(background_sprites, inner_blocks, outer_blocks, players, foreground_sprites)
+        all_sprites_list += [background_sprites, outer_blocks, inner_blocks, players, foreground_sprites]
         camera = Camera(all_sprites_list=all_sprites_list, player=player)
 
         prev_time = time.time()
@@ -321,13 +320,6 @@ class Game:
                 player.update(dt, pressed_keys)
                 self.game_surf.blit(player.image, player.rect)
 
-            for project_tile in project_tiles:
-                project_tile.update(dt)  # Project tiles should update regardless of it's visibility.
-                if self.is_out_of_screen(project_tile):
-                    continue
-
-                self.game_surf.blit(project_tile.image, project_tile.rect)
-
             for foreground_sprite in foreground_sprites:
                 if self.is_out_of_screen(foreground_sprite):
                     continue
@@ -348,7 +340,6 @@ class Game:
                     all_sprites=all_sprites,
                     background_sprites=background_sprites,
                     foreground_sprites=foreground_sprites,
-                    project_tiles=project_tiles,
                     all_sprites_list=all_sprites_list
                 )
             except KeyError:
@@ -418,7 +409,7 @@ class Game:
             )
             dirt.rect.centerx = mouse_x
             dirt.rect.centery = mouse_y
-            kwargs["outer_blocks"].add(dirt)
+            kwargs["inner_blocks"].add(dirt)
             kwargs["all_sprites"].add(dirt)
 
         if self.key_presses["2"]:
@@ -592,7 +583,7 @@ class Game:
                 height=100,
                 players=kwargs["players"],
                 game_surf=self.game_surf,
-                project_tiles=kwargs["project_tiles"]
+                all_sprites_list=kwargs["all_sprites_list"]
             )
             auto_gun.rect.centerx = mouse_x
             auto_gun.rect.centery = mouse_y
